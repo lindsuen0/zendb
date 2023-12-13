@@ -6,12 +6,12 @@ import (
 	"github.com/go-ini/ini"
 )
 
-type zendb struct {
-	port string `ini:"port"`
-	path string `ini:"path"`
+type DBConfig struct {
+	Port string `ini:"port"`
+	Path string `ini:"path"`
 }
 
-var ZendbConfig = new(zendb)
+var ZenDBConfig = new(DBConfig)
 
 var cfg = new(ini.File)
 
@@ -25,7 +25,7 @@ func Setup() {
 	} else {
 		log.Printf("%s is parsed successfully.", configPath)
 	}
-	mapTo("zendb", ZendbConfig)
+	mapTo("zendb", ZenDBConfig)
 }
 
 // Convert a Map to a struct.
