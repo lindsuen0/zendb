@@ -1,0 +1,18 @@
+# GitHub
+.github/
+
+# macOS
+__MACOSX/
+.DS_Store
+
+# Visual Studio Code
+*.code-workspace
+.vscode/
+
+# JetBrains IDE and Fleet
+.idea/
+.fleet/
+
+# Project
+bin/
+data/
