@@ -1,6 +1,6 @@
 module github.com/lindsuen0/zendb
 
-go 1.21.4
+go 1.21.5
 
 require (
 	github.com/go-ini/ini v1.67.0
