@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bufio"
+	"fmt"
 	"log"
 	"net"
 
@@ -14,13 +16,13 @@ func init() {
 }
 
 func main() {
-	listener, err := net.Listen("tcp", "127.0.0.1:4976")
+	listener, err := net.Listen("tcp", "127.0.0.1:"+config.ZenDBConfig.Port)
 	if err != nil {
 		log.Fatalln("Error listening: ", err.Error())
 	}
 	defer listener.Close()
 
-	log.Println("Server started. Listening on port 4976...")
+	log.Println("Server started. Listening on port " + config.ZenDBConfig.Port + "...")
 
 	for {
 		conn, err := listener.Accept()
@@ -35,4 +37,16 @@ func main() {
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 	// TODO
+	for {
+		reader := bufio.NewReader(conn)
+		var buf [128]byte
+		n, err := reader.Read(buf[:])
+		if err != nil {
+			fmt.Println("read from client failed, err: ", err)
+			break
+		}
+		recvStr := string(buf[:n])
+		fmt.Println("have recived msg from client: ", recvStr)
+		conn.Write([]byte(recvStr))
+	}
 }
