@@ -16,13 +16,13 @@ func init() {
 }
 
 func main() {
-	listener, err := net.Listen("tcp", "127.0.0.1:"+config.ZenDBConfig.Port)
+	listener, err := net.Listen("tcp", "127.0.0.1:"+config.ZenDBConfig.ZenDBPort)
 	if err != nil {
 		log.Fatalln("Error listening: ", err.Error())
 	}
 	defer listener.Close()
 
-	log.Println("Server started. Listening on port " + config.ZenDBConfig.Port + "...")
+	log.Println("Server started. Listening on port " + config.ZenDBConfig.ZenDBPort + "...")
 
 	for {
 		conn, err := listener.Accept()

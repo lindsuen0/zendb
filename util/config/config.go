@@ -7,8 +7,8 @@ import (
 )
 
 type DBConfig struct {
-	Port string `ini:"port"`
-	Path string `ini:"path"`
+	ZenDBPort string `ini:"port"`
+	ZenDBData string `ini:"data"`
 }
 
 var ZenDBConfig = new(DBConfig)
