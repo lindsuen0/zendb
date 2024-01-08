@@ -8,7 +8,7 @@ package client
 
 import (
 	"bufio"
-	"fmt"
+	"log"
 	"net"
 	"os"
 	"strings"
@@ -17,7 +17,7 @@ import (
 func TcpClientMain() {
 	conn, err := net.Dial("tcp", "127.0.0.1:8080")
 	if err != nil {
-		fmt.Println("err : ", err)
+		log.Fatalln("err : ", err)
 		return
 	}
 	defer conn.Close()
@@ -36,9 +36,9 @@ func TcpClientMain() {
 		buf := [512]byte{}
 		n, err := conn.Read(buf[:])
 		if err != nil {
-			fmt.Println("recv failed, err:", err)
+			log.Println("recv failed, err:", err)
 			return
 		}
-		fmt.Println(string(buf[:n]))
+		log.Println(string(buf[:n]))
 	}
 }

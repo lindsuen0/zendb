@@ -22,8 +22,6 @@ func Setup() {
 	db, err = leveldb.OpenFile("data", nil)
 	if err != nil {
 		log.Fatalln(err)
-	} else {
-		log.Println("leveldb is on.")
 	}
 }
 

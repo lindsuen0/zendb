@@ -8,7 +8,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"net"
 
@@ -28,7 +27,7 @@ func main() {
 	}
 	defer listener.Close()
 
-	log.Println("Server started. Listening on port " + config.ZenDBConfig.ZenDBPort + "...")
+	log.Println("ZenDB server started. Listening on port " + config.ZenDBConfig.ZenDBPort + "...")
 
 	for {
 		conn, err := listener.Accept()
@@ -48,11 +47,11 @@ func handleConnection(conn net.Conn) {
 		var buf [128]byte
 		n, err := reader.Read(buf[:])
 		if err != nil {
-			fmt.Println("read from client failed, err: ", err)
+			log.Println("read from client failed, err: ", err)
 			break
 		}
 		recvStr := string(buf[:n])
-		fmt.Println("have recived msg from client: ", recvStr)
+		log.Println("have recived msg from client: ", recvStr)
 		conn.Write([]byte(recvStr))
 	}
 }
