@@ -14,10 +14,10 @@ import (
 	"strings"
 )
 
-func TcpClientMain() {
-	conn, err := net.Dial("tcp", "127.0.0.1:8080")
+func TCPClientMain() {
+	conn, err := net.Dial("tcp", "127.0.0.1:4780")
 	if err != nil {
-		log.Fatalln("err : ", err)
+		log.Fatalln(err)
 		return
 	}
 	defer conn.Close()
@@ -36,7 +36,7 @@ func TcpClientMain() {
 		buf := [512]byte{}
 		n, err := conn.Read(buf[:])
 		if err != nil {
-			log.Println("recv failed, err:", err)
+			log.Println("Recvied failed, err: ", err)
 			return
 		}
 		log.Println(string(buf[:n]))

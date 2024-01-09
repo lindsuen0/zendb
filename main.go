@@ -44,14 +44,14 @@ func handleConnection(conn net.Conn) {
 	// TODO
 	for {
 		reader := bufio.NewReader(conn)
-		var buf [128]byte
+		var buf [4096]byte
 		n, err := reader.Read(buf[:])
 		if err != nil {
-			log.Println("read from client failed, err: ", err)
+			log.Println("An existing connection was closed by the remote host.")
 			break
 		}
 		recvStr := string(buf[:n])
-		log.Println("have recived msg from client: ", recvStr)
+		log.Println("Recived msg from client: , message: ", recvStr)
 		conn.Write([]byte(recvStr))
 	}
 }
