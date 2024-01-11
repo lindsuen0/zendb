@@ -6,10 +6,13 @@
 
 package main
 
+import "os"
+
 type byteStream struct {
 	operator operatorStruct
 	key      keyStruct
 	value    valueStruct
+	client   string
 }
 
 type operatorStruct struct {
@@ -43,4 +46,29 @@ func (b *keyStruct) setTag() {
 func (b *valueStruct) setTag() {
 	b.startTag = "-"
 	b.endTag = "\n"
+}
+
+func (b *operatorStruct) setOperatorContent(s uint8) {
+	b.operatorContent = s
+}
+
+func (b *keyStruct) setKeyContent(s string) {
+	b.keyContent = s
+}
+
+func (b *valueStruct) setValueContent(s string) {
+	b.valueContent = s
+}
+
+func parseStream(s *byteStream) {
+
+}
+
+func generateStream() byteStream {
+	stream := new(byteStream)
+	stream.client, _ = os.Hostname()
+	stream.operator.setTag()
+	stream.key.setTag()
+	stream.value.setTag()
+	return *stream
 }
