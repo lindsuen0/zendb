@@ -6,9 +6,12 @@
 
 package main
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
-type byteStream struct {
+type Stream struct {
 	operator operatorStruct
 	key      keyStruct
 	value    valueStruct
@@ -33,17 +36,17 @@ type valueStruct struct {
 	endTag       string
 }
 
-func (b *operatorStruct) setTag() {
+func (b *operatorStruct) setOperatorTag() {
 	b.startTag = ":"
 	b.endTag = "\n"
 }
 
-func (b *keyStruct) setTag() {
+func (b *keyStruct) setKeyTag() {
 	b.startTag = "$"
 	b.endTag = "\n"
 }
 
-func (b *valueStruct) setTag() {
+func (b *valueStruct) setValueTag() {
 	b.startTag = "-"
 	b.endTag = "\n"
 }
@@ -60,15 +63,40 @@ func (b *valueStruct) setValueContent(s string) {
 	b.valueContent = s
 }
 
-func parseStream(s *byteStream) {
+// func (b *operatorStruct) setKey() {
+//
+// }
 
+// GeneratePutStream
+// 0: Put, 1: Delete
+func GeneratePutStream(key string, value string) Stream {
+	stream := new(Stream)
+	stream.client, _ = os.Hostname()
+	stream.operator.setOperatorTag()
+	stream.key.setKeyTag()
+	stream.value.setValueTag()
+	stream.operator.setOperatorContent(0)
+	stream.key.setKeyContent(key)
+	stream.value.setValueContent(value)
+	fmt.Println(stream)
+	return *stream
 }
 
-func generateStream() byteStream {
-	stream := new(byteStream)
+// GenerateDeleteStream
+// 0: Put, 1: Delete
+func GenerateDeleteStream(key string) Stream {
+	stream := new(Stream)
 	stream.client, _ = os.Hostname()
-	stream.operator.setTag()
-	stream.key.setTag()
-	stream.value.setTag()
+	stream.operator.setOperatorTag()
+	stream.key.setKeyTag()
+	stream.value.setValueTag()
+	stream.operator.setOperatorContent(1)
+	stream.key.setKeyContent(key)
+	stream.value.setValueContent("")
+
 	return *stream
+}
+
+func ParsePutStream(s *Stream) {
+
 }
