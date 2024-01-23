@@ -2762,7 +2762,7 @@ func TestDB_TableCompactionBuilder(t *testing.T) {
 	v.release()
 }
 
-func testDB_IterTriggeredCompaction(t *testing.T, limitDiv int) {
+func testdbItertriggeredcompaction(t *testing.T, limitDiv int) {
 	const (
 		vSize = 200 * opt.KiB
 		tSize = 100 * opt.MiB
@@ -2842,11 +2842,11 @@ func testDB_IterTriggeredCompaction(t *testing.T, limitDiv int) {
 }
 
 func TestDB_IterTriggeredCompaction(t *testing.T) {
-	testDB_IterTriggeredCompaction(t, 1)
+	testdbItertriggeredcompaction(t, 1)
 }
 
 func TestDB_IterTriggeredCompactionHalf(t *testing.T) {
-	testDB_IterTriggeredCompaction(t, 2)
+	testdbItertriggeredcompaction(t, 2)
 }
 
 func TestDB_ReadOnly(t *testing.T) {

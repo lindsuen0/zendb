@@ -37,7 +37,7 @@ func TestVersionStaging(t *testing.T) {
 	tmp := make([]byte, 4)
 	mik := func(i uint64) []byte {
 		binary.BigEndian.PutUint32(tmp, uint32(i))
-		return []byte(makeInternalKey(nil, tmp, 0, keyTypeVal))
+		return makeInternalKey(nil, tmp, 0, keyTypeVal)
 	}
 
 	for i, x := range []struct {
@@ -244,7 +244,7 @@ func TestVersionReference(t *testing.T) {
 	tmp := make([]byte, 4)
 	mik := func(i uint64) []byte {
 		binary.BigEndian.PutUint32(tmp, uint32(i))
-		return []byte(makeInternalKey(nil, tmp, 0, keyTypeVal))
+		return makeInternalKey(nil, tmp, 0, keyTypeVal)
 	}
 
 	// Test normal version task correctness
@@ -397,7 +397,7 @@ func benchmarkVersionStaging(b *testing.B, trivial bool, size int) {
 	tmp := make([]byte, 4)
 	mik := func(i uint64) []byte {
 		binary.BigEndian.PutUint32(tmp, uint32(i))
-		return []byte(makeInternalKey(nil, tmp, 0, keyTypeVal))
+		return makeInternalKey(nil, tmp, 0, keyTypeVal)
 	}
 
 	rec := &sessionRecord{}

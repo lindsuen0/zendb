@@ -16,7 +16,7 @@ const typeShift = 4
 
 // Verify at compile-time that typeShift is large enough to cover all FileType
 // values by confirming that 0 == 0.
-var _ [0]struct{} = [TypeAll >> typeShift]struct{}{}
+var _ = [TypeAll >> typeShift]struct{}{}
 
 type memStorageLock struct {
 	ms *memStorage

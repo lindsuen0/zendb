@@ -303,7 +303,7 @@ func (i *mergedIterator) indexHeap() *indexHeap {
 // keys: if iters[i] contains a key k then iters[j] will not contain that key k.
 // None of the iters may be nil.
 //
-// If strict is true the any 'corruption errors' (i.e. errors.IsCorrupted(err) == true)
+// If strict is true, any 'corruption errors' (i.e. errors.IsCorrupted(err) == true)
 // won't be ignored and will halt 'merged iterator', otherwise the iterator will
 // continue to the next 'input iterator'.
 func NewMergedIterator(iters []Iterator, cmp comparer.Comparer, strict bool) Iterator {

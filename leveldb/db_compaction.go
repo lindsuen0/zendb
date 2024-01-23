@@ -286,7 +286,7 @@ func (db *DB) memCompaction() {
 	// Pause table compaction.
 	resumeC := make(chan struct{})
 	select {
-	case db.tcompPauseC <- (chan<- struct{})(resumeC):
+	case db.tcompPauseC <- resumeC:
 	case <-db.compPerErrC:
 		close(resumeC)
 		resumeC = nil

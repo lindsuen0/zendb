@@ -354,7 +354,7 @@ func (v *version) pickMemdbLevel(umin, umax []byte, maxLevel int) (level int) {
 
 func (v *version) computeCompaction() {
 	// Precomputed best level for next compaction
-	bestLevel := int(-1)
+	bestLevel := -1
 	bestScore := float64(-1)
 
 	statFiles := make([]int, len(v.levels))

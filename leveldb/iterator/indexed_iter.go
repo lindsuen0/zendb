@@ -232,7 +232,7 @@ func (i *indexedIterator) SetErrorCallback(f func(err error)) {
 // that returns another iterator, a 'data iterator'. A 'data iterator' is the
 // iterator that contains actual key/value pairs.
 //
-// If strict is true any 'corruption errors' (i.e. errors.IsCorrupted(err) == true)
+// If strict is true, any 'corruption errors' (i.e. errors.IsCorrupted(err) == true)
 // won't be ignored and will halt 'indexed iterator', otherwise the iterator will
 // continue to the next 'data iterator'. Corruption on 'index iterator' will not be
 // ignored and will halt the iterator.

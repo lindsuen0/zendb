@@ -41,7 +41,7 @@ type Comparer interface {
 
 	// Separator appends a sequence of bytes x to dst such that a <= x && x < b,
 	// where 'less than' is consistent with Compare. An implementation should
-	// return nil if x equal to a.
+	// return nil if 'x'equal to 'a'.
 	//
 	// Either contents of a or b should not by any means modified. Doing so
 	// may cause corruption on the internal state.

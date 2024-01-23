@@ -230,38 +230,38 @@ func (kv KeyValue) Range(start, limit int) (r util.Range) {
 	return
 }
 
-func KeyValue_EmptyKey() *KeyValue {
+func KeyvalueEmptykey() *KeyValue {
 	kv := &KeyValue{}
 	kv.PutString("", "v")
 	return kv
 }
 
-func KeyValue_EmptyValue() *KeyValue {
+func KeyvalueEmptyvalue() *KeyValue {
 	kv := &KeyValue{}
 	kv.PutString("abc", "")
 	kv.PutString("abcd", "")
 	return kv
 }
 
-func KeyValue_OneKeyValue() *KeyValue {
+func KeyvalueOnekeyvalue() *KeyValue {
 	kv := &KeyValue{}
 	kv.PutString("abc", "v")
 	return kv
 }
 
-func KeyValue_BigValue() *KeyValue {
+func KeyvalueBigvalue() *KeyValue {
 	kv := &KeyValue{}
 	kv.PutString("big1", strings.Repeat("1", 200000))
 	return kv
 }
 
-func KeyValue_SpecialKey() *KeyValue {
+func KeyvalueSpecialkey() *KeyValue {
 	kv := &KeyValue{}
 	kv.PutString("\xff\xff", "v3")
 	return kv
 }
 
-func KeyValue_MultipleKeyValue() *KeyValue {
+func KeyvalueMultiplekeyvalue() *KeyValue {
 	kv := &KeyValue{}
 	kv.PutString("a", "v")
 	kv.PutString("aa", "v1")
@@ -292,7 +292,7 @@ func KeyValue_MultipleKeyValue() *KeyValue {
 
 var keymap = []byte("012345678ABCDEFGHIJKLMNOPQRSTUVWXYabcdefghijklmnopqrstuvwxy")
 
-func KeyValue_Generate(rnd *rand.Rand, n, incr, minlen, maxlen, vminlen, vmaxlen int) *KeyValue {
+func KeyvalueGenerate(rnd *rand.Rand, n, incr, minlen, maxlen, vminlen, vmaxlen int) *KeyValue {
 	if rnd == nil {
 		rnd = NewRand()
 	}

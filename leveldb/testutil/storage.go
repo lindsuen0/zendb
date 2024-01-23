@@ -23,10 +23,10 @@ import (
 )
 
 var (
-	storageMu     sync.Mutex
-	storageUseFS  = true
-	storageKeepFS = false
-	storageNum    int
+	storageMu sync.Mutex
+	// storageUseFS  = true
+	// storageKeepFS = false
+	storageNum int
 )
 
 type StorageMode int
@@ -550,7 +550,7 @@ func (s *Storage) Close() error {
 		}
 	}
 	if s.path != "" {
-		if storageKeepFS || preserve {
+		if preserve {
 			s.logI("storage is preserved, path=%v", s.path)
 		} else {
 			if err1 := os.RemoveAll(s.path); err1 != nil {
@@ -663,21 +663,17 @@ func NewStorage() *Storage {
 		stor storage.Storage
 		path string
 	)
-	if storageUseFS {
-		for {
-			storageMu.Lock()
-			num := storageNum
-			storageNum++
-			storageMu.Unlock()
-			path = filepath.Join(os.TempDir(), fmt.Sprintf("goleveldb-test%d0%d0%d", os.Getuid(), os.Getpid(), num))
-			if _, err := os.Stat(path); os.IsNotExist(err) {
-				stor, err = storage.OpenFile(path, false)
-				ExpectWithOffset(1, err).NotTo(HaveOccurred(), "creating storage at %s", path)
-				break
-			}
+	for {
+		storageMu.Lock()
+		num := storageNum
+		storageNum++
+		storageMu.Unlock()
+		path = filepath.Join(os.TempDir(), fmt.Sprintf("goleveldb-test%d0%d0%d", os.Getuid(), os.Getpid(), num))
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			stor, err = storage.OpenFile(path, false)
+			ExpectWithOffset(1, err).NotTo(HaveOccurred(), "creating storage at %s", path)
+			break
 		}
-	} else {
-		stor = storage.NewMemStorage()
 	}
 	s := &Storage{
 		Storage: stor,

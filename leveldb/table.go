@@ -286,10 +286,10 @@ func (tf tFiles) newIndexIterator(tops *tOps, icmp *iComparer, slice *util.Range
 	if slice != nil {
 		var start, limit int
 		if slice.Start != nil {
-			start = tf.searchMax(icmp, internalKey(slice.Start))
+			start = tf.searchMax(icmp, slice.Start)
 		}
 		if slice.Limit != nil {
-			limit = tf.searchMin(icmp, internalKey(slice.Limit))
+			limit = tf.searchMin(icmp, slice.Limit)
 		} else {
 			limit = tf.Len()
 		}
@@ -314,7 +314,7 @@ type tFilesArrayIndexer struct {
 }
 
 func (a *tFilesArrayIndexer) Search(key []byte) int {
-	return a.searchMax(a.icmp, internalKey(key))
+	return a.searchMax(a.icmp, key)
 }
 
 func (a *tFilesArrayIndexer) Get(i int) iterator.Iterator {
@@ -585,7 +585,7 @@ func (w *tWriter) finish() (f *tFile, err error) {
 			return
 		}
 	}
-	f = newTableFile(w.fd, int64(w.tw.BytesLen()), internalKey(w.first), internalKey(w.last))
+	f = newTableFile(w.fd, int64(w.tw.BytesLen()), w.first, w.last)
 	return
 }
 

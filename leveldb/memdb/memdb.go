@@ -271,7 +271,7 @@ func (p *DB) findLast() int {
 }
 
 // Put sets the value for the given key. It overwrites any previous value
-// for that key; a DB is not a multi-map.
+// for that key; a DB is not a multiple-map.
 //
 // It is safe to modify the contents of the arguments after Put returns.
 func (p *DB) Put(key []byte, value []byte) error {

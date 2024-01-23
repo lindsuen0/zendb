@@ -27,7 +27,6 @@ func Setup() {
 	}
 }
 
-// GetData
 func GetData(k string) (string, error) {
 	v, err := db.Get([]byte(k), nil)
 	if err != nil {
@@ -36,7 +35,6 @@ func GetData(k string) (string, error) {
 	return string(v), err
 }
 
-// GetAllData
 func GetAllData() {
 	iter := db.NewIterator(nil, nil)
 	for iter.Next() {
@@ -49,7 +47,6 @@ func GetAllData() {
 	}
 }
 
-// PutData
 func PutData(k string, v string) {
 	err := db.Put([]byte(k), []byte(v), nil)
 	if err != nil {

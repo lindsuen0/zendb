@@ -95,7 +95,7 @@ func (snap *Snapshot) String() string {
 }
 
 // Get gets the value for the given key. It returns ErrNotFound if
-// the DB does not contains the key.
+// the DB does not contain the key.
 //
 // The caller should not modify the contents of the returned slice, but
 // it is safe to modify the contents of the argument after Get returns.
@@ -113,7 +113,7 @@ func (snap *Snapshot) Get(key []byte, ro *opt.ReadOptions) (value []byte, err er
 	return snap.db.get(nil, nil, key, snap.elem.seq, ro)
 }
 
-// Has returns true if the DB does contains the given key.
+// Has returns true if the DB contains the given key.
 //
 // It is safe to modify the contents of the argument after Get returns.
 func (snap *Snapshot) Has(key []byte, ro *opt.ReadOptions) (ret bool, err error) {

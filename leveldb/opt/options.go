@@ -18,7 +18,7 @@ import (
 const (
 	KiB = 1024
 	MiB = KiB * 1024
-	GiB = MiB * 1024
+	// GiB = MiB * 1024
 )
 
 var (
@@ -102,7 +102,7 @@ var (
 	LRUCacher = CacherFunc(cache.NewLRU)
 
 	// NoCacher is the value to disable caching algorithm.
-	NoCacher = CacherFunc(nil)
+	// NoCacher = CacherFunc(nil)
 )
 
 // Compression is the 'sorted table' block compression algorithm to use.
@@ -170,7 +170,7 @@ const (
 	DefaultStrict = StrictJournalChecksum | StrictBlockChecksum | StrictCompaction | StrictReader
 
 	// NoStrict disables all strict flags. Override default strict flags.
-	NoStrict = ^StrictAll
+	// NoStrict = ^StrictAll
 )
 
 // Options holds the optional parameters for the DB at large.
@@ -194,7 +194,7 @@ type Options struct {
 	// The default value is 8MiB.
 	BlockCacheCapacity int
 
-	// BlockCacheEvictRemoved allows enable forced-eviction on cached block belonging
+	// BlockCacheEvictRemoved allows to enable forced-eviction on cached block belonging
 	// to removed 'sorted table'.
 	//
 	// The default if false.
@@ -291,24 +291,24 @@ type Options struct {
 	// The default value (DefaultCompression) uses snappy compression.
 	Compression Compression
 
-	// DisableBufferPool allows disable use of util.BufferPool functionality.
+	// DisableBufferPool allows to disable use of util.BufferPool functionality.
 	//
 	// The default value is false.
 	DisableBufferPool bool
 
-	// DisableBlockCache allows disable use of cache.Cache functionality on
+	// DisableBlockCache allows to disable use of cache.Cache functionality on
 	// 'sorted table' block.
 	//
 	// The default value is false.
 	DisableBlockCache bool
 
-	// DisableCompactionBackoff allows disable compaction retry backoff.
+	// DisableCompactionBackoff allows to disable compaction retry backoff.
 	//
 	// The default value is false.
 	DisableCompactionBackoff bool
 
 	// DisableLargeBatchTransaction allows disabling switch-to-transaction mode
-	// on large batch write. If enable batch writes large than WriteBuffer will
+	// on large batch write. If enable batch writes are larger than WriteBuffer will
 	// use transaction.
 	//
 	// The default is false.
@@ -696,7 +696,7 @@ func (o *Options) GetFilterBaseLg() int {
 type ReadOptions struct {
 	// DontFillCache defines whether block reads for this 'read operation'
 	// should be cached. If false then the block will be cached. This does
-	// not affects already cached block.
+	// not affect already cached block.
 	//
 	// The default value is false.
 	DontFillCache bool

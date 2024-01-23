@@ -711,7 +711,7 @@ func (n *Node) Ref() int32 {
 	return atomic.LoadInt32(&n.ref)
 }
 
-// GetHandle returns an handle for this 'cache node'.
+// GetHandle returns a handle for this 'cache node'.
 func (n *Node) GetHandle() *Handle {
 	if atomic.AddInt32(&n.ref, 1) <= 1 {
 		panic("BUG: Node.GetHandle on zero ref")

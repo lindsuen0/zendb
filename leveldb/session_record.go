@@ -299,7 +299,7 @@ func (p *sessionRecord) decode(r io.Reader) error {
 			level := p.readLevel("comp-ptr.level", br)
 			ikey := p.readBytes("comp-ptr.ikey", br)
 			if p.err == nil {
-				p.addCompPtr(level, internalKey(ikey))
+				p.addCompPtr(level, ikey)
 			}
 		case recAddTable:
 			level := p.readLevel("add-table.level", br)

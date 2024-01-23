@@ -40,7 +40,7 @@ func TestGetOverlaps(t *testing.T) {
 			copy(key, tmp)
 			return key
 		}
-		return []byte(makeInternalKey(nil, tmp, 0, typ))
+		return makeInternalKey(nil, tmp, 0, typ)
 	}
 
 	rec := &sessionRecord{}
@@ -134,7 +134,7 @@ func benchmarkGetOverlap(b *testing.B, level int, size int) {
 			copy(key, tmp)
 			return key
 		}
-		return []byte(makeInternalKey(nil, tmp, 0, typ))
+		return makeInternalKey(nil, tmp, 0, typ)
 	}
 
 	rec := &sessionRecord{}

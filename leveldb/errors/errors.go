@@ -12,14 +12,13 @@ import (
 	"fmt"
 
 	"github.com/lindsuen0/zendb/leveldb/storage"
-	"github.com/lindsuen0/zendb/leveldb/util"
 )
 
 // Common errors.
 var (
-	ErrNotFound    = New("leveldb: not found")
-	ErrReleased    = util.ErrReleased
-	ErrHasReleaser = util.ErrHasReleaser
+	ErrNotFound = New("leveldb: not found")
+	// ErrReleased    = util.ErrReleased
+	// ErrHasReleaser = util.ErrHasReleaser
 )
 
 // New returns an error that formats as the given text.
