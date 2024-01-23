@@ -41,7 +41,7 @@ type version struct {
 	released bool
 }
 
-// newVersion creates a new version with an unique monotonous increasing id.
+// newVersion creates a new version with a unique monotonous increasing id.
 func newVersion(s *session) *version {
 	id := atomic.AddInt64(&s.ntVersionID, 1)
 	nv := &version{s: s, id: id - 1}
@@ -191,7 +191,7 @@ func (v *version) get(aux tFiles, ikey internalKey, ro *opt.ReadOptions, noValue
 
 		if fukey, fseq, fkt, fkerr := parseInternalKey(fikey); fkerr == nil {
 			if v.s.icmp.uCompare(ukey, fukey) == 0 {
-				// Level <= 0 may overlaps each-other.
+				// Level <= 0 may overlap each-other.
 				if level <= 0 {
 					if fseq >= zseq {
 						zfound = true
@@ -372,7 +372,7 @@ func (v *version) computeCompaction() {
 			// (1) With larger write-buffer sizes, it is nice not to do too
 			// many level-0 compaction.
 			//
-			// (2) The files in level-0 are merged on every read and
+			// (2) The files in level-0 are merged on every read, and
 			// therefore we wish to avoid too many files when the individual
 			// file size is small (perhaps because of a small write-buffer
 			// setting, or very high compression ratios, or lots of

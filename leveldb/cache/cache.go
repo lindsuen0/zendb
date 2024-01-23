@@ -36,7 +36,7 @@ type Cacher interface {
 }
 
 // Value is a 'cache-able object'. It may implements util.Releaser, if
-// so the the Release method will be called once object is released.
+// so the Release method will be called once object is released.
 type Value interface{}
 
 // NamespaceGetter provides convenient wrapper for namespace.
@@ -462,8 +462,8 @@ func (r *Cache) SetCapacity(capacity int) {
 }
 
 // Get gets 'cache node' with the given namespace and key.
-// If cache node is not found and setFunc is not nil, Get will atomically creates
-// the 'cache node' by calling setFunc. Otherwise Get will returns nil.
+// If cache node is not found and setFunc is not nil, Get() will atomically creates
+// the 'cache node' by calling setFunc. Otherwise Get() will returns nil.
 //
 // The returned 'cache handle' should be released after use by calling Release
 // method.
@@ -518,7 +518,7 @@ func (r *Cache) Get(ns, key uint64, setFunc func() (size int, value Value)) *Han
 }
 
 // Delete removes and ban 'cache node' with the given namespace and key.
-// A banned 'cache node' will never inserted into the 'cache tree'. Ban
+// A banned 'cache node' will never be inserted into the 'cache tree'. Ban
 // only attributed to the particular 'cache node', so when a 'cache node'
 // is recreated it will not be banned.
 //

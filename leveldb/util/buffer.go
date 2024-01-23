@@ -63,7 +63,7 @@ func (b *Buffer) Reset() {
 	b.off = 0
 }
 
-// tryGrowByReslice is a inlineable version of grow for the fast-case where the
+// tryGrowByReslice is an inlineable version of grow for the fast-case where the
 // internal buffer only needs to be resliced.
 // It returns the index where bytes should be written and whether it succeeded.
 func (b *Buffer) tryGrowByReslice(n int) (int, bool) {
@@ -95,7 +95,7 @@ func (b *Buffer) grow(n int) int {
 	if n <= c/2-m {
 		// We can slide things down instead of allocating a new
 		// slice. We only need m+n <= c to slide, but
-		// we instead let capacity get twice as large so we
+		// we instead let capacity get twice as large, so we
 		// don't spend all our time copying.
 		copy(b.buf, b.buf[b.off:])
 	} else if c > maxInt-c-n {
@@ -195,7 +195,7 @@ func makeSlice(n int) []byte {
 // WriteTo writes data to w until the buffer is drained or an error occurs.
 // The return value n is the number of bytes written; it always fits into an
 // int, but it is int64 to match the io.WriterTo interface. Any error
-// encountered during the write is also returned.
+// encountered during the Write() is also returned.
 func (b *Buffer) WriteTo(w io.Writer) (n int64, err error) {
 	if b.off < len(b.buf) {
 		nBytes := b.Len()

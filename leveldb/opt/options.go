@@ -393,7 +393,7 @@ type Options struct {
 	// 'sorted table'. 'memdb' is an in-memory DB backed by an on-disk
 	// unsorted journal.
 	//
-	// LevelDB may held up to two 'memdb' at the same time.
+	// LevelDB may be held up to two 'memdb' at the same time.
 	//
 	// The default value is 4MiB.
 	WriteBuffer int

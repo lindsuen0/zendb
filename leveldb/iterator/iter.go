@@ -21,20 +21,20 @@ var (
 // IteratorSeeker is the interface that wraps the 'seeks method'.
 type IteratorSeeker interface {
 	// First moves the iterator to the first key/value pair. If the iterator
-	// only contains one key/value pair then First and Last would moves
+	// only contains one key/value pair then First() and Last() would move
 	// to the same key/value pair.
-	// It returns whether such pair exist.
+	// It returns whether such pair is exist.
 	First() bool
 
 	// Last moves the iterator to the last key/value pair. If the iterator
 	// only contains one key/value pair then First and Last would moves
 	// to the same key/value pair.
-	// It returns whether such pair exist.
+	// It returns whether such pair is exist.
 	Last() bool
 
 	// Seek moves the iterator to the first key/value pair whose key is greater
 	// than or equal to the given key.
-	// It returns whether such pair exist.
+	// It returns whether such pair is exist.
 	//
 	// It is safe to modify the contents of the argument after Seek returns.
 	Seek(key []byte) bool

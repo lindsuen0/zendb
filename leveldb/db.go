@@ -167,7 +167,7 @@ func openDB(s *session) (*DB, error) {
 
 // Open opens or creates a DB for the given storage.
 // The DB will be created if not exist, unless ErrorIfMissing is true.
-// Also, if ErrorIfExist is true and the DB exist Open will returns
+// Also, if ErrorIfExist is true and the DB exist, Open() will returns
 // os.ErrExist error.
 //
 // Open will return an error with type of ErrCorrupted if corruption
@@ -869,7 +869,7 @@ func (db *DB) Get(key []byte, ro *opt.ReadOptions) (value []byte, err error) {
 	return db.get(nil, nil, key, se.seq, ro)
 }
 
-// Has returns true if the DB does contains the given key.
+// Has returns true if the DB contains the given key.
 //
 // It is safe to modify the contents of the argument after Has returns.
 func (db *DB) Has(key []byte, ro *opt.ReadOptions) (ret bool, err error) {
