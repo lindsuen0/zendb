@@ -6,7 +6,7 @@ require (
 	github.com/go-ini/ini v1.67.0
 	github.com/golang/snappy v0.0.4
 	github.com/onsi/ginkgo v1.16.5
-	github.com/onsi/gomega v1.31.0
+	github.com/onsi/gomega v1.31.1
 	github.com/stretchr/testify v1.8.4
 )
 
