@@ -60,7 +60,7 @@ Block:
 
 Block is consist of one or more key/value entries and a block trailer.
 Block entry shares key prefix with its preceding key until a restart
-point reached. A block should contains at least one restart point.
+point reached. A block should contain at least one restart point.
 First restart point are always zero.
 
 Block data structure:
@@ -85,7 +85,7 @@ Key/value entry:
         entry one  : key=deck,value=v1
         entry two  : key=dock,value=v2
         entry three: key=duck,value=v3
-    The entries will be encoded as follow:
+    The entries will be encoded as follows:
 
       + restart point (offset=0)                                                 + restart point (offset=16)
      /                                                                          /
@@ -95,7 +95,7 @@ Key/value entry:
      \                                   / \                                  / \                                   /
       +----------- entry one -----------+   +----------- entry two ----------+   +---------- entry three ----------+
 
-    The block trailer will contains two restart points:
+    The block trailer will contain two restart points:
 
     +------------+-----------+--------+
     |     0      |    16     |   2    |

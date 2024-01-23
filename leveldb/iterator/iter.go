@@ -27,7 +27,7 @@ type IteratorSeeker interface {
 	First() bool
 
 	// Last moves the iterator to the last key/value pair. If the iterator
-	// only contains one key/value pair then First and Last would moves
+	// only contains one key/value pair then First and Last would move
 	// to the same key/value pair.
 	// It returns whether such pair is exist.
 	Last() bool
@@ -53,7 +53,7 @@ type CommonIterator interface {
 	IteratorSeeker
 
 	// util.Releaser is the interface that wraps basic Release method.
-	// When called Release will releases any resources associated with the
+	// When called Release will release any resources associated with the
 	// iterator.
 	util.Releaser
 

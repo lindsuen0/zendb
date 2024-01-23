@@ -848,7 +848,7 @@ func (r *Reader) find(key []byte, filtered bool, ro *opt.ReadOptions, noValue bo
 		return nil, nil, r.err
 	}
 
-	// The filter should only used for exact match.
+	// The filter should only be used for exact match.
 	if filtered && r.filter != nil {
 		filterBlock, frel, ferr := r.getFilterBlock(true)
 		if ferr == nil {
@@ -900,7 +900,7 @@ func (r *Reader) find(key []byte, filtered bool, ro *opt.ReadOptions, noValue bo
 			value = data.Value()
 		} else {
 			// Value does use block buffer, and since the buffer will be
-			// recycled, it need to be copied.
+			// recycled, it needs to be copied.
 			value = append([]byte(nil), data.Value()...)
 		}
 	}
@@ -996,7 +996,7 @@ func (r *Reader) OffsetOf(key []byte) (offset int64, err error) {
 }
 
 // Release implements util.Releaser.
-// It also close the file if it is an io.Closer.
+// It also closes the file if it is an io.Closer.
 func (r *Reader) Release() {
 	r.mu.Lock()
 	defer r.mu.Unlock()

@@ -417,7 +417,7 @@ func (p *DB) Capacity() int {
 
 // Size returns sum of keys and values length. Note that deleted
 // key/value will not be accounted for, but it will still consume
-// the buffer, since the buffer is append only.
+// the buffer, since the buffer is appended only.
 func (p *DB) Size() int {
 	p.mu.RLock()
 	defer p.mu.RUnlock()

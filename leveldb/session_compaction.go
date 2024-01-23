@@ -41,7 +41,7 @@ func (s *session) flushMemdb(rec *sessionRecord, mdb *memdb.DB, maxLevel int) (i
 	// bulk insert and delete on strictly incrementing key-space. The
 	// problem is that the small deletion markers trapped at lower level,
 	// while key/value entries keep growing at higher level. Since the
-	// key-space is strictly incrementing it will not overlaps with
+	// key-space is strictly incrementing it will not overlap with
 	// higher level, thus maximum possible level is always picked, while
 	// overlapping deletion marker pushed into lower level.
 	// See: https://github.com/lindsuen0/zendb/issues/127.
@@ -110,7 +110,7 @@ func (s *session) getCompactionRange(sourceLevel int, umin, umax []byte, noLimit
 	}
 
 	// Avoid compacting too much in one shot in case the range is large.
-	// But we cannot do this for level-0 since level-0 files can overlap
+	// But we cannot do this for level-0 since level-0 files can overlap,
 	// and we must not pick one file and drop another older file if the
 	// two files overlap.
 	if !noLimit && sourceLevel > 0 {
@@ -314,7 +314,7 @@ func (c *compaction) newIterator() iterator.Iterator {
 			continue
 		}
 
-		// Level-0 is not sorted and may overlaps each other.
+		// Level-0 is not sorted and may overlap each other.
 		if c.sourceLevel+i == 0 {
 			for _, t := range tables {
 				its = append(its, c.s.tops.newIterator(t, nil, ro))

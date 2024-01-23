@@ -33,7 +33,7 @@ func (t *tFile) after(icmp *iComparer, ukey []byte) bool {
 	return ukey != nil && icmp.uCompare(ukey, t.imax.ukey()) > 0
 }
 
-// Returns true if given key is before smallest key of this table.
+// Returns true if given key is before() smallest key of this table.
 func (t *tFile) before(icmp *iComparer, ukey []byte) bool {
 	return ukey != nil && icmp.uCompare(ukey, t.imin.ukey()) < 0
 }
@@ -88,7 +88,7 @@ type tFiles []*tFile
 func (tf tFiles) Len() int      { return len(tf) }
 func (tf tFiles) Swap(i, j int) { tf[i], tf[j] = tf[j], tf[i] }
 
-// Returns true if i smallest key is less than j.
+// Returns true if i is the smallest key, which is less than j.
 // This used for sort by key in ascending order.
 func (tf tFiles) lessByKey(icmp *iComparer, i, j int) bool {
 	a, b := tf[i], tf[j]
@@ -472,7 +472,7 @@ func (t *tOps) newIterator(f *tFile, slice *util.Range, ro *opt.ReadOptions) ite
 }
 
 // Removes table from persistent storage. It waits until
-// no one use the the table.
+// no one use the table.
 func (t *tOps) remove(fd storage.FileDesc) {
 	t.fileCache.Delete(0, uint64(fd.Num), func() {
 		if err := t.s.stor.Remove(fd); err != nil {
@@ -527,7 +527,7 @@ func newTableOps(s *session) *tOps {
 	}
 }
 
-// tWriter wraps the table writer. It keep track of file descriptor
+// tWriter wraps the table writer. It keeps track of file descriptor
 // and added key range.
 type tWriter struct {
 	t *tOps

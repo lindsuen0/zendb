@@ -148,11 +148,11 @@ const (
 	// This has effect on both 'read operation' and compaction.
 	StrictBlockChecksum
 
-	// If present then a corrupted 'sorted table' will fails compaction.
+	// If present then a corrupted 'sorted table' will fail compaction.
 	// The database will enter read-only mode.
 	StrictCompaction
 
-	// If present then a corrupted 'sorted table' will halts 'read operation'.
+	// If present then a corrupted 'sorted table' will halt 'read operation'.
 	StrictReader
 
 	// If present then leveldb.Recover will drop corrupted 'sorted table'.
@@ -322,13 +322,13 @@ type Options struct {
 	// The default is false.
 	DisableSeeksCompaction bool
 
-	// ErrorIfExist defines whether an error should returned if the DB already
+	// ErrorIfExist defines whether an error should be returned if the DB already
 	// exist.
 	//
 	// The default value is false.
 	ErrorIfExist bool
 
-	// ErrorIfMissing defines whether an error should returned if the DB is
+	// ErrorIfMissing defines whether an error should be returned if the DB is
 	// missing. If false then the database will be created if missing, otherwise
 	// an error will be returned.
 	//

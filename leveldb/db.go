@@ -207,7 +207,7 @@ func Open(stor storage.Storage, o *opt.Options) (db *DB, err error) {
 
 // OpenFile opens or creates a DB for the given path.
 // The DB will be created if not exist, unless ErrorIfMissing is true.
-// Also, if ErrorIfExist is true and the DB exist OpenFile will returns
+// Also, if ErrorIfExist is true and the DB exist OpenFile will return
 // os.ErrExist error.
 //
 // OpenFile uses standard file-system backed storage implementation as
@@ -235,7 +235,7 @@ func OpenFile(path string, o *opt.Options) (db *DB, err error) {
 
 // Recover recovers and opens a DB with missing or corrupted manifest files
 // for the given storage. It will ignore any manifest files, valid or not.
-// The DB must already exist or it will returns an error.
+// The DB must already exist or it will return an error.
 // Also, Recover will ignore ErrorIfMissing and ErrorIfExist options.
 //
 // The returned DB instance is safe for concurrent use.

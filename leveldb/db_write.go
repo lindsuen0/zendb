@@ -268,7 +268,7 @@ func (db *DB) Write(batch *Batch, wo *opt.WriteOptions) error {
 		return err
 	}
 
-	// If the batch size is larger than write buffer, it may justified to write
+	// If the batch size is larger than write buffer, it may be justified to write
 	// using transaction instead. Using transaction the batch will be written
 	// into tables directly, skipping the journaling.
 	if batch.internalLen > db.s.o.GetWriteBuffer() && !db.s.o.GetDisableLargeBatchTransaction() {
@@ -375,7 +375,7 @@ func (db *DB) Put(key, value []byte, wo *opt.WriteOptions) error {
 	return db.putRec(keyTypeVal, key, value, wo)
 }
 
-// Delete deletes the value for the given key. Delete will not returns error if
+// Delete deletes the value for the given key. Delete will not return error if
 // key doesn't exist. Write merge also applies for Delete, see Write.
 //
 // It is safe to modify the contents of the arguments after Delete returns but
@@ -399,7 +399,7 @@ func isMemOverlaps(icmp *iComparer, mem *memdb.DB, min, max []byte) bool {
 //
 // A nil Range.Start is treated as a key before all keys in the DB.
 // And a nil Range.Limit is treated as a key after all keys in the DB.
-// Therefore if both is nil then it will compact entire DB.
+// Therefore, if both is nil then it will compact entire DB.
 func (db *DB) CompactRange(r util.Range) error {
 	if err := db.ok(); err != nil {
 		return err

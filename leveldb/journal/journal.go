@@ -22,7 +22,7 @@
 // writer without starting a new journal. To start a new journal after flushing,
 // call Next.
 //
-// Neither Readers or Writers are safe to use concurrently.
+// Neither Readers nor Writers are safe to use concurrently.
 //
 // Example code:
 //
@@ -243,8 +243,8 @@ func (r *Reader) nextChunk(first bool) error {
 }
 
 // Next returns a reader for the next journal. It returns io.EOF if there are no
-// more journals. The reader returned becomes stale after the next Next call,
-// and should no longer be used. If strict is false, the reader will returns
+// more journals. The reader returned becomes stale after the next Next() call,
+// and should no longer be used. If strict is false, the reader will return
 // io.ErrUnexpectedEOF error when found corrupted journal.
 func (r *Reader) Next() (io.Reader, error) {
 	r.seq++
@@ -449,7 +449,7 @@ func (w *Writer) Flush() error {
 }
 
 // Reset resets the journal writer, allows reuse of the journal writer. Reset
-// will also closes the journal writer if not already.
+// will also close the journal writer if not already.
 func (w *Writer) Reset(writer io.Writer) (err error) {
 	w.seq++
 	if w.err == nil {

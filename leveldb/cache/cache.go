@@ -35,7 +35,7 @@ type Cacher interface {
 	Evict(n *Node)
 }
 
-// Value is a 'cache-able object'. It may implements util.Releaser, if
+// Value is a 'cache-able object'. It may implement util.Releaser, if
 // so the Release method will be called once object is released.
 type Value interface{}
 

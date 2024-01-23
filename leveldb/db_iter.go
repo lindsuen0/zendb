@@ -260,7 +260,7 @@ func (i *dbIter) prev() bool {
 					if !del && i.icmp.uCompare(ukey, i.key) < 0 {
 						return true
 					}
-					del = (kt == keyTypeDel)
+					del = kt == keyTypeDel
 					if !del {
 						i.key = append(i.key[:0], ukey...)
 						i.value = append(i.value[:0], i.iter.Value()...)
