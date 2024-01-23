@@ -16,8 +16,8 @@ import (
 )
 
 func init() {
-	db.Setup()
 	config.Setup()
+	db.Setup()
 }
 
 func main() {
@@ -41,7 +41,7 @@ func main() {
 
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
-	// TODO
+
 	for {
 		reader := bufio.NewReader(conn)
 		var buf [4096]byte

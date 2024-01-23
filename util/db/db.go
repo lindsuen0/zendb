@@ -8,6 +8,7 @@ package db
 
 import (
 	"fmt"
+	"github.com/lindsuen0/zendb/util/config"
 	"log"
 
 	"github.com/lindsuen0/zendb/leveldb"
@@ -19,7 +20,8 @@ var (
 )
 
 func Setup() {
-	db, err = leveldb.OpenFile("data", nil)
+	dataPath := config.ZenDBConfig.ZenDBData
+	db, err = leveldb.OpenFile(dataPath, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
