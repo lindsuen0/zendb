@@ -1387,8 +1387,8 @@ func TestDB_OverlapInLevel0(t *testing.T) {
 		h.tablesPerLevel("0,1,1")
 
 		// Make files spanning the following ranges in level-0:
-		//  files[0]  200 .. 900
-		//  files[1]  300 .. 500
+		// files[0]  200 .. 900
+		// files[1]  300 .. 500
 		// Note that files are sorted by min key.
 		h.put("300", "v300")
 		h.put("500", "v500")
@@ -1899,7 +1899,7 @@ func TestDB_ConcurrentWrite(t *testing.T) {
 				kstr := fmt.Sprintf("put-%d.%d", i, k)
 				vstr := fmt.Sprintf("v%d", k)
 				h.put(kstr, vstr)
-				// Key should immediately available after put returns.
+				// Key should be available after put returns immediately.
 				h.getVal(kstr, vstr)
 			}
 		}(i)
@@ -1915,7 +1915,7 @@ func TestDB_ConcurrentWrite(t *testing.T) {
 					batch.Put([]byte(fmt.Sprintf("batch-%d.%d.%d", i, k, j)), []byte(fmt.Sprintf("v%d", k)))
 				}
 				h.write(batch)
-				// Key should immediately available after put returns.
+				// Key should be available after put returns immediately.
 				for j := 0; j < bk; j++ {
 					h.getVal(fmt.Sprintf("batch-%d.%d.%d", i, k, j), fmt.Sprintf("v%d", k))
 				}

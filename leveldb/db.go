@@ -235,7 +235,7 @@ func OpenFile(path string, o *opt.Options) (db *DB, err error) {
 
 // Recover recovers and opens a DB with missing or corrupted manifest files
 // for the given storage. It will ignore any manifest files, valid or not.
-// The DB must already exist or it will return an error.
+// The DB must already exist, or it will return an error.
 // Also, Recover will ignore ErrorIfMissing and ErrorIfExist options.
 //
 // The returned DB instance is safe for concurrent use.
@@ -261,7 +261,7 @@ func Recover(stor storage.Storage, o *opt.Options) (db *DB, err error) {
 
 // RecoverFile recovers and opens a DB with missing or corrupted manifest files
 // for the given path. It will ignore any manifest files, valid or not.
-// The DB must already exist or it will returns an error.
+// The DB must already exist, or it will return an error.
 // Also, Recover will ignore ErrorIfMissing and ErrorIfExist options.
 //
 // RecoverFile uses standard file-system backed storage implementation as described
@@ -853,7 +853,7 @@ func (db *DB) has(auxm *memdb.DB, auxt tFiles, key []byte, seq uint64, ro *opt.R
 }
 
 // Get gets the value for the given key. It returns ErrNotFound if the
-// DB does not contains the key.
+// DB does not contain the key.
 //
 // The returned slice is its own copy, it is safe to modify the contents
 // of the returned slice.
@@ -915,7 +915,7 @@ func (db *DB) NewIterator(slice *util.Range, ro *opt.ReadOptions) iterator.Itera
 	return db.newIterator(nil, nil, se.seq, slice, ro)
 }
 
-// GetSnapshot returns a latest snapshot of the underlying DB. A snapshot
+// GetSnapshot returns the latest snapshot of the underlying DB. A snapshot
 // is a frozen snapshot of a DB state at a particular point in time. The
 // content of snapshot are guaranteed to be consistent.
 //
@@ -1162,7 +1162,7 @@ func (db *DB) SizeOf(ranges []util.Range) (Sizes, error) {
 	return sizes, nil
 }
 
-// Close closes the DB. This will also releases any outstanding snapshot,
+// Close closes the DB. This will also release any outstanding snapshot,
 // abort any in-flight compaction and discard open transaction.
 //
 // It is not safe to close a DB until all outstanding iterators are released.

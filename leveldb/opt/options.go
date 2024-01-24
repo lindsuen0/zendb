@@ -378,7 +378,7 @@ type Options struct {
 	// OpenFilesCacheCapacity defines the capacity of the open files caching.
 	// Use -1 for zero, this has same effect as specifying NoCacher to OpenFilesCacher.
 	//
-	// The default value is 200 on MacOS and 500 on other.
+	// The default value is 200 on the macOS operating system and 500 on others.
 	OpenFilesCacheCapacity int
 
 	// If true then opens DB in read-only mode.

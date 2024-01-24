@@ -126,7 +126,7 @@ hasperr:
 		case db.compErrC <- err:
 		case db.compPerErrC <- err:
 		case db.writeLockC <- struct{}{}:
-			// Hold write lock, so that write won't pass-through.
+			// Hold write lock, so that write won't pass through.
 			db.compWriteLocking = true
 		case <-db.closeC:
 			if db.compWriteLocking {
@@ -507,7 +507,7 @@ func (b *tableCompactionBuilder) run(cnt *compactionTransactCounter) (err error)
 				// (3) data in layers that are being compacted here and have
 				//     smaller seq numbers will be dropped in the next
 				//     few iterations of this loop (by rule (A) above).
-				// Therefore this deletion marker is obsolete and can be dropped.
+				// Therefore, this deletion marker is obsolete and can be dropped.
 				lastSeq = seq
 				b.dropCnt++
 				continue
@@ -683,7 +683,7 @@ type cCmd interface {
 }
 
 type cAuto struct {
-	// Note for table compaction, an non-empty ackC represents it's a compaction waiting command.
+	// Note for table compaction, a non-empty ackC represents it's a compaction waiting command.
 	ackC chan<- error
 }
 

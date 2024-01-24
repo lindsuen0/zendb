@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Taken from: https://code.google.com/p/leveldb-go/source/browse/leveldb/record/record_test.go?r=df1fa28f7f3be6c3935548169002309c12967135
-// License, authors and contributors informations can be found at bellow URLs respectively:
+// The information of license, authors and contributors can be found at bellow URLs respectively:
 // 	https://code.google.com/p/leveldb-go/source/browse/LICENSE
 //	https://code.google.com/p/leveldb-go/source/browse/AUTHORS
 //  https://code.google.com/p/leveldb-go/source/browse/CONTRIBUTORS
@@ -191,7 +191,7 @@ func TestFlush(t *testing.T) {
 		t.Fatalf("buffer length #1: got %d want %d", got, want)
 	}
 	// Do another write, one that isn't large enough to complete the block.
-	// The write should not have flowed through to buf.
+	// The write() should not have flowed through to buf.
 	w2, _ := w.Next()
 	if _, err := w2.Write(bytes.Repeat([]byte("2"), 10000)); err != nil {
 		t.Fatal(err)

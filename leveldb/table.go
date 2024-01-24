@@ -203,7 +203,7 @@ func (tf tFiles) getOverlaps(dst tFiles, icmp *iComparer, umin, umax []byte, ove
 	// so use binary search instead of heavy traverse.
 	if !overlapped {
 		var begin, end int
-		// Determine the begin index of the overlapped file
+		// Determine the start index of the overlapped file
 		if umin != nil {
 			index := tf.searchMinUkey(icmp, umin)
 			if index == 0 {

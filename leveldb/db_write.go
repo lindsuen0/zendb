@@ -366,7 +366,7 @@ func (db *DB) putRec(kt keyType, key, value []byte, wo *opt.WriteOptions) error 
 }
 
 // Put sets the value for the given key. It overwrites any previous value
-// for that key; a DB is not a multi-map. Write merge also applies for Put, see
+// for that key; a DB is not a multiple map. Write merge also applies for Put, see
 // Write.
 //
 // It is safe to modify the contents of the arguments after Put returns but not
