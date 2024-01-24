@@ -20,7 +20,7 @@ var (
 )
 
 func Setup() {
-	dataPath := config.ZenDBConfig.ZenDBData
+	dataPath := config.DBConfig.Data
 	db, err = leveldb.OpenFile(dataPath, nil)
 	if err != nil {
 		log.Fatalln(err)
