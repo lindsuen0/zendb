@@ -8,6 +8,7 @@ ZenDB is a key-value database based on goLevelDB.
 - flag
 - config.ini
 - log
+- tls
 
 ## License
 
