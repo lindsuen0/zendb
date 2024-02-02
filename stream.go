@@ -6,16 +6,10 @@
 
 package main
 
-import (
-	"fmt"
-	"os"
-)
-
-type Stream struct {
+type stream struct {
 	operator operatorStruct
 	key      keyStruct
 	value    valueStruct
-	client   string
 }
 
 type operatorStruct struct {
@@ -63,40 +57,29 @@ func (b *valueStruct) setValueContent(s string) {
 	b.valueContent = s
 }
 
-// func (b *operatorStruct) setKey() {
-//
-// }
-
-// GeneratePutStream
+// setPutStream
 // 0: Put, 1: Delete
-func GeneratePutStream(key string, value string) Stream {
-	stream := new(Stream)
-	stream.client, _ = os.Hostname()
+func setPutStream(key string, value string) stream {
+	stream := new(stream)
 	stream.operator.setOperatorTag()
 	stream.key.setKeyTag()
 	stream.value.setValueTag()
 	stream.operator.setOperatorContent(0)
 	stream.key.setKeyContent(key)
 	stream.value.setValueContent(value)
-	fmt.Println(stream)
 	return *stream
 }
 
 // GenerateDeleteStream
 // 0: Put, 1: Delete
-func GenerateDeleteStream(key string) Stream {
-	stream := new(Stream)
-	stream.client, _ = os.Hostname()
-	stream.operator.setOperatorTag()
-	stream.key.setKeyTag()
-	stream.value.setValueTag()
-	stream.operator.setOperatorContent(1)
-	stream.key.setKeyContent(key)
-	stream.value.setValueContent("")
-
-	return *stream
-}
-
-func ParsePutStream(s *Stream) {
-
-}
+// func GenerateDeleteStream(key string) stream {
+// 	stream := new(stream)
+// 	stream.operator.setOperatorTag()
+// 	stream.key.setKeyTag()
+// 	stream.value.setValueTag()
+// 	stream.operator.setOperatorContent(1)
+// 	stream.key.setKeyContent(key)
+// 	stream.value.setValueContent("")
+//
+// 	return *stream
+// }
