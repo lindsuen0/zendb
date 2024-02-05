@@ -67,6 +67,10 @@ func (b *valueStruct) setValueContent(s string) {
 
 // setPutStream
 // 0: Put, 1: Delete
+// stream:
+// stream.operator.startTag+stream.operator.operatorContent+stream.operator.endTag
+// stream.key.startTag+stream.key.keyContent+stream.key.endTag
+// stream.value.startTag+stream.value.valueContent+stream.value.endTag
 func setPutStream(key string, value string) stream {
 	stream := new(stream)
 	stream.operator.setOperatorTag()
@@ -77,21 +81,6 @@ func setPutStream(key string, value string) stream {
 	stream.value.setValueContent(value)
 	return *stream
 }
-
-// GenerateDeleteStream
-// 0: Put, 1: Delete
-//
-//	func GenerateDeleteStream(key string) stream {
-//		stream := new(stream)
-//		stream.operator.setOperatorTag()
-//		stream.key.setKeyTag()
-//		stream.value.setValueTag()
-//		stream.operator.setOperatorContent(1)
-//		stream.key.setKeyContent(key)
-//		stream.value.setValueContent("")
-//
-//		return *stream
-//	}
 
 func Connect(add string) {
 	conn, err := net.Dial("tcp", add)
