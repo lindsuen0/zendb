@@ -14,69 +14,69 @@ import (
 	"strings"
 )
 
-type stream struct {
-	operator operatorStruct
-	key      keyStruct
-	value    valueStruct
+type Stream struct {
+	operator OperatorStruct
+	key      KeyStruct
+	value    ValueStruct
 }
 
-type operatorStruct struct {
+type OperatorStruct struct {
 	startTag        string
-	operatorContent uint8
+	operatorContent string
 	endTag          string
 }
 
-type keyStruct struct {
+type KeyStruct struct {
 	startTag   string
 	keyContent string
 	endTag     string
 }
 
-type valueStruct struct {
+type ValueStruct struct {
 	startTag     string
 	valueContent string
 	endTag       string
 }
 
-func (b *operatorStruct) setOperatorTag() {
+func (b *OperatorStruct) setOperatorTag() {
 	b.startTag = ":"
-	b.endTag = "\n"
+	b.endTag = "\\n"
 }
 
-func (b *keyStruct) setKeyTag() {
+func (b *KeyStruct) setKeyTag() {
 	b.startTag = "$"
-	b.endTag = "\n"
+	b.endTag = "\\n"
 }
 
-func (b *valueStruct) setValueTag() {
+func (b *ValueStruct) setValueTag() {
 	b.startTag = "-"
-	b.endTag = "\n"
+	b.endTag = "\\n"
 }
 
-func (b *operatorStruct) setOperatorContent(s uint8) {
+func (b *OperatorStruct) setOperatorContent(s string) {
 	b.operatorContent = s
 }
 
-func (b *keyStruct) setKeyContent(s string) {
+func (b *KeyStruct) setKeyContent(s string) {
 	b.keyContent = s
 }
 
-func (b *valueStruct) setValueContent(s string) {
+func (b *ValueStruct) setValueContent(s string) {
 	b.valueContent = s
 }
 
-// setPutStream
+// SetPutStream
 // 0: Put, 1: Delete
 // stream:
 // stream.operator.startTag+stream.operator.operatorContent+stream.operator.endTag
 // stream.key.startTag+stream.key.keyContent+stream.key.endTag
 // stream.value.startTag+stream.value.valueContent+stream.value.endTag
-func setPutStream(key string, value string) stream {
-	stream := new(stream)
+func SetPutStream(key string, value string) Stream {
+	stream := new(Stream)
 	stream.operator.setOperatorTag()
 	stream.key.setKeyTag()
 	stream.value.setValueTag()
-	stream.operator.setOperatorContent(0)
+	stream.operator.setOperatorContent("0")
 	stream.key.setKeyContent(key)
 	stream.value.setValueContent(value)
 	return *stream
