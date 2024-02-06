@@ -15,53 +15,53 @@ import (
 )
 
 type Stream struct {
-	operator OperatorStruct
-	key      KeyStruct
-	value    ValueStruct
+	operator operatorStruct
+	key      keyStruct
+	value    valueStruct
 }
 
-type OperatorStruct struct {
+type operatorStruct struct {
 	startTag        string
 	operatorContent string
 	endTag          string
 }
 
-type KeyStruct struct {
+type keyStruct struct {
 	startTag   string
 	keyContent string
 	endTag     string
 }
 
-type ValueStruct struct {
+type valueStruct struct {
 	startTag     string
 	valueContent string
 	endTag       string
 }
 
-func (b *OperatorStruct) setOperatorTag() {
+func (b *operatorStruct) setOperatorTag() {
 	b.startTag = ":"
 	b.endTag = "\\n"
 }
 
-func (b *KeyStruct) setKeyTag() {
+func (b *keyStruct) setKeyTag() {
 	b.startTag = "$"
 	b.endTag = "\\n"
 }
 
-func (b *ValueStruct) setValueTag() {
+func (b *valueStruct) setValueTag() {
 	b.startTag = "-"
 	b.endTag = "\\n"
 }
 
-func (b *OperatorStruct) setOperatorContent(s string) {
+func (b *operatorStruct) setOperatorContent(s string) {
 	b.operatorContent = s
 }
 
-func (b *KeyStruct) setKeyContent(s string) {
+func (b *keyStruct) setKeyContent(s string) {
 	b.keyContent = s
 }
 
-func (b *ValueStruct) setValueContent(s string) {
+func (b *valueStruct) setValueContent(s string) {
 	b.valueContent = s
 }
 
@@ -82,8 +82,22 @@ func SetPutStream(key string, value string) Stream {
 	return *stream
 }
 
-func Connect(add string) {
-	conn, err := net.Dial("tcp", add)
+// SetDeleteStream
+// 0: Put, 1: Delete
+// stream:
+// stream.operator.startTag+stream.operator.operatorContent+stream.operator.endTag
+// stream.key.startTag+stream.key.keyContent+stream.key.endTag
+// stream.value.startTag+stream.value.valueContent+stream.value.endTag
+func SetDeleteStream(key string) {
+	stream := new(Stream)
+	stream.operator.setOperatorTag()
+	stream.key.setKeyTag()
+	stream.operator.setOperatorContent("1")
+	stream.key.setKeyContent(key)
+}
+
+func Connect(tcpAddress string) {
+	conn, err := net.Dial("tcp", tcpAddress)
 	if err != nil {
 		log.Fatalln(err)
 		return

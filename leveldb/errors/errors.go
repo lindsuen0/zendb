@@ -10,6 +10,7 @@ package errors
 import (
 	"errors"
 	"fmt"
+
 	"github.com/lindsuen0/zendb/leveldb/storage"
 )
 

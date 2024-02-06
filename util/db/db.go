@@ -8,8 +8,9 @@ package db
 
 import (
 	"fmt"
-	"github.com/lindsuen0/zendb/util/config"
 	"log"
+
+	"github.com/lindsuen0/zendb/util/config"
 
 	"github.com/lindsuen0/zendb/leveldb"
 )
