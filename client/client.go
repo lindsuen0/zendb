@@ -12,6 +12,8 @@ import (
 	"net"
 	"os"
 	"strings"
+
+	"github.com/lindsuen0/zendb/stream"
 )
 
 func Connect(tcpAddress string) {
@@ -41,4 +43,12 @@ func Connect(tcpAddress string) {
 		}
 		log.Println(string(buf[:n]))
 	}
+}
+
+func Put(key string, value string) {
+	stream.GeneratePutStream(key, value)
+}
+
+func Delete(key string) {
+	stream.GenerateDeleteStream(key)
 }
