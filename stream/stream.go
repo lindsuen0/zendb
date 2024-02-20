@@ -106,3 +106,29 @@ func ParseValue() {
 func PreparseStream() {
 
 }
+
+func ParseStruct(message string, startTag string, endTag string) string {
+	messageSlice := []rune(message)
+
+	var startTagIndex int
+	var endTagIndex int
+
+	for k, v := range messageSlice {
+		if string(v) == startTag {
+			startTagIndex = k
+			break
+		}
+	}
+
+	tempIndex := startTagIndex
+	for ; ; tempIndex++ {
+		if string(messageSlice[tempIndex]) == endTag {
+			endTagIndex = tempIndex
+			break
+		}
+	}
+
+	finalSlice := messageSlice[startTagIndex+1 : endTagIndex]
+	// fmt.Println(string(finalSlice))
+	return string(finalSlice)
+}
