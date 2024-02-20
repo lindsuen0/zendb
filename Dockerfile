@@ -1,10 +1,11 @@
-FROM alpine:3.18
+FROM debian:stable-slim
 
 ENV ZENDB_HOME=/var/lib/zendb
 
 WORKDIR ${ZENDB_HOME}
 
-COPY zendb ${ZENDB_HOME}/zendb
+COPY bin/zendb ${ZENDB_HOME}/zendb
+
 COPY entrypoint.sh /entrypoint.sh
 
 EXPOSE 4780/tcp
