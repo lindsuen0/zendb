@@ -1,9 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -e
 
 function main() {
-    cd ${ZENDB_HOME} && ./zendb
+    cd ${ZENDB_HOME} || exit
+    ./zendb
 }
 
 main

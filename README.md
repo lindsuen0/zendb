@@ -11,7 +11,7 @@ make build
 ```
 
 ```sh
-docker build --no-cache -t zendb/zendb-server:1.0.0 .
+docker build --no-cache -t zendb/zendb-server:latest .
 ```
 
 ## License
