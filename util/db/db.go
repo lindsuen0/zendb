@@ -28,6 +28,7 @@ func Setup() {
 	}
 }
 
+// GetData is a function to get the value from a key.
 func GetData(k string) (string, error) {
 	v, err := db.Get([]byte(k), nil)
 	if err != nil {
@@ -36,6 +37,7 @@ func GetData(k string) (string, error) {
 	return string(v), err
 }
 
+// GetAllData is a function to get all values in database.
 func GetAllData() {
 	iter := db.NewIterator(nil, nil)
 	for iter.Next() {
@@ -48,6 +50,7 @@ func GetAllData() {
 	}
 }
 
+// PutData is a function to add key-value in database.
 func PutData(k string, v string) {
 	err := db.Put([]byte(k), []byte(v), nil)
 	if err != nil {
@@ -55,7 +58,7 @@ func PutData(k string, v string) {
 	}
 }
 
-// DeleteData is a function to delete the value from a key string.
+// DeleteData is a function to delete the value from a key.
 func DeleteData(k string) {
 	err := db.Delete([]byte(k), nil)
 	if err != nil {
