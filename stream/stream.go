@@ -64,7 +64,9 @@ func (b *valueStruct) setValueContent(s string) {
 }
 
 // GeneratePutStream
+// operatorTag:
 // 0: Put, 1: Delete
+//
 // stream:
 // stream.operator.startTag+stream.operator.operatorContent+stream.operator.endTag
 // stream.key.startTag+stream.key.keyContent+stream.key.endTag
@@ -81,7 +83,9 @@ func GeneratePutStream(key string, value string) Stream {
 }
 
 // GenerateDeleteStream
+// operatorTag:
 // 0: Put, 1: Delete
+//
 // stream:
 // stream.operator.startTag+stream.operator.operatorContent+stream.operator.endTag
 // stream.key.startTag+stream.key.keyContent+stream.key.endTag
@@ -115,7 +119,8 @@ func parseStruct(message string, startTag string, endTag string) string {
 	return string(messageSlice[startTagIndex+1 : endTagIndex])
 }
 
-// ParsePutStream
+// ParsePutStream parses the stream of PUT.
+// operatorTag:
 // 0: Put, 1: Delete
 func ParsePutStream(m string) {
 	operatorTag := parseStruct(m, ":", "\n")
@@ -129,7 +134,8 @@ func ParsePutStream(m string) {
 	db.PutData(keyContent, valueContent)
 }
 
-// ParseDeleteStream
+// ParseDeleteStream parses the stream of DELETE.
+// operatorTag:
 // 0: Put, 1: Delete
 func ParseDeleteStream(m string) {
 	operatorTag := parseStruct(m, ":", "\n")
