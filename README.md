@@ -2,11 +2,17 @@
 
 ZenDB is a key-value database based on goLevelDB.
 
-## TODO
+## Build
 
-- gRPC
-- flag
-- tls
+### Docker
+
+```sh
+make build
+```
+
+```sh
+docker build --no-cache -t zendb/zendb-server:1.0.0 .
+```
 
 ## License
 
