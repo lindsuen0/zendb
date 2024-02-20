@@ -6,6 +6,12 @@
 
 package stream
 
+import (
+	"log"
+
+	"github.com/lindsuen0/zendb/util/db"
+)
+
 type Stream struct {
 	operator operatorStruct
 	key      keyStruct
@@ -87,31 +93,9 @@ func GenerateDeleteStream(key string) {
 	stream.key.setKeyContent(key)
 }
 
-// ParseOperator
-func ParseOperator() {
-
-}
-
-// ParseKey
-func ParseKey() {
-
-}
-
-// ParseValue
-func ParseValue() {
-
-}
-
-// PreparseStream
-func PreparseStream() {
-
-}
-
-func ParseStruct(message string, startTag string, endTag string) string {
+func parseStruct(message string, startTag string, endTag string) string {
 	messageSlice := []rune(message)
-
-	var startTagIndex int
-	var endTagIndex int
+	var startTagIndex, endTagIndex int
 
 	for k, v := range messageSlice {
 		if string(v) == startTag {
@@ -128,7 +112,36 @@ func ParseStruct(message string, startTag string, endTag string) string {
 		}
 	}
 
-	finalSlice := messageSlice[startTagIndex+1 : endTagIndex]
-	// fmt.Println(string(finalSlice))
-	return string(finalSlice)
+	return string(messageSlice[startTagIndex+1 : endTagIndex])
+}
+
+// ParsePutStream
+// 0: Put, 1: Delete
+func ParsePutStream(m string) {
+	operatorTag := parseStruct(m, ":", "\n")
+	keyContent := parseStruct(m, "$", "\n")
+	valueContent := parseStruct(m, "-", "\n")
+
+	if operatorTag != "0" {
+		log.Println("error")
+	}
+
+	db.PutData(keyContent, valueContent)
+}
+
+// ParseDeleteStream
+// 0: Put, 1: Delete
+func ParseDeleteStream(m string) {
+	operatorTag := parseStruct(m, ":", "\n")
+	keyContent := parseStruct(m, "$", "\n")
+	valueContent := parseStruct(m, "-", "\n")
+
+	if operatorTag != "1" {
+		log.Println("error")
+	}
+	if valueContent != "" {
+		log.Println("error")
+	}
+
+	db.DeleteData(keyContent)
 }

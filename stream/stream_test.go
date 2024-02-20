@@ -16,7 +16,7 @@ func TestGeneratePutStream(t *testing.T) {
 	operatorStream1 := stream1.operator.startTag + stream1.operator.operatorContent + stream1.operator.endTag
 	keyStream1 := stream1.key.startTag + stream1.key.keyContent + stream1.key.endTag
 	valueStream1 := stream1.value.startTag + stream1.value.valueContent + stream1.value.endTag
-	t.Log(operatorStream1 + keyStream1 + valueStream1)
+	fmt.Println(operatorStream1 + keyStream1 + valueStream1)
 }
 
 func TestGenerateDeleteStream(t *testing.T) {
@@ -25,7 +25,7 @@ func TestGenerateDeleteStream(t *testing.T) {
 
 func TestParseStruct(t *testing.T) {
 	s := ":0\n$KEY321\n-VALUE123\n"
-	d := ParseStruct(s, "-", "\n")
+	d := parseStruct(s, "-", "\n")
 
 	fmt.Println(d)
 }
