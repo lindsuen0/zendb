@@ -13,88 +13,103 @@ import (
 )
 
 type Stream struct {
-	operator operatorStruct
-	key      keyStruct
-	value    valueStruct
+	Operator operatorStruct
+	Key      keyStruct
+	Value    valueStruct
 }
 
 type operatorStruct struct {
-	startTag        string
-	operatorContent string
-	endTag          string
+	StartTag        string
+	OperatorContent string
+	EndTag          string
 }
 
 type keyStruct struct {
-	startTag   string
-	keyContent string
-	endTag     string
+	StartTag   string
+	KeyContent string
+	EndTag     string
 }
 
 type valueStruct struct {
-	startTag     string
-	valueContent string
-	endTag       string
+	StartTag     string
+	ValueContent string
+	EndTag       string
 }
 
 func (b *operatorStruct) setOperatorTag() {
-	b.startTag = ":"
-	b.endTag = "\\n"
+	b.StartTag = ":"
+	b.EndTag = "\\n"
 }
 
 func (b *keyStruct) setKeyTag() {
-	b.startTag = "$"
-	b.endTag = "\\n"
+	b.StartTag = "$"
+	b.EndTag = "\\n"
 }
 
 func (b *valueStruct) setValueTag() {
-	b.startTag = "-"
-	b.endTag = "\\n"
+	b.StartTag = "-"
+	b.EndTag = "\\n"
 }
 
 func (b *operatorStruct) setOperatorContent(s string) {
-	b.operatorContent = s
+	b.OperatorContent = s
 }
 
 func (b *keyStruct) setKeyContent(s string) {
-	b.keyContent = s
+	b.KeyContent = s
 }
 
 func (b *valueStruct) setValueContent(s string) {
-	b.valueContent = s
+	b.ValueContent = s
 }
 
 // GeneratePutStream
 // operatorTag:
-// 0: Put, 1: Delete
+// 0: Put, 1: Delete, 2: Get
 //
 // stream:
-// stream.operator.startTag+stream.operator.operatorContent+stream.operator.endTag
-// stream.key.startTag+stream.key.keyContent+stream.key.endTag
-// stream.value.startTag+stream.value.valueContent+stream.value.endTag
+// stream.Operator.StartTag+stream.Operator.OperatorContent+stream.Operator.EndTag
+// stream.Key.StartTag+stream.Key.KeyContent+stream.Key.EndTag
+// stream.Value.StartTag+stream.Value.ValueContent+stream.Value.EndTag
 func GeneratePutStream(key string, value string) Stream {
 	stream := new(Stream)
-	stream.operator.setOperatorTag()
-	stream.key.setKeyTag()
-	stream.value.setValueTag()
-	stream.operator.setOperatorContent("0")
-	stream.key.setKeyContent(key)
-	stream.value.setValueContent(value)
+	stream.Operator.setOperatorTag()
+	stream.Key.setKeyTag()
+	stream.Value.setValueTag()
+	stream.Operator.setOperatorContent("0")
+	stream.Key.setKeyContent(key)
+	stream.Value.setValueContent(value)
 	return *stream
 }
 
 // GenerateDeleteStream
 // operatorTag:
-// 0: Put, 1: Delete
+// 0: Put, 1: Delete, 2: Get
 //
 // stream:
-// stream.operator.startTag+stream.operator.operatorContent+stream.operator.endTag
-// stream.key.startTag+stream.key.keyContent+stream.key.endTag
+// stream.Operator.StartTag+stream.Operator.OperatorContent+stream.Operator.EndTag
+// stream.Key.StartTag+stream.Key.KeyContent+stream.Key.EndTag
 func GenerateDeleteStream(key string) {
 	stream := new(Stream)
-	stream.operator.setOperatorTag()
-	stream.key.setKeyTag()
-	stream.operator.setOperatorContent("1")
-	stream.key.setKeyContent(key)
+	stream.Operator.setOperatorTag()
+	stream.Key.setKeyTag()
+	stream.Operator.setOperatorContent("1")
+	stream.Key.setKeyContent(key)
+}
+
+// GenerateGetStream
+// operatorTag:
+// 0: Put, 1: Delete, 2: Get
+//
+// stream:
+// stream.Operator.StartTag+stream.Operator.OperatorContent+stream.Operator.EndTag
+// stream.Key.StartTag+stream.Key.KeyContent+stream.Key.EndTag
+func GenerateGetStream(key string) {
+	stream := new(Stream)
+	stream.Operator.setOperatorTag()
+	stream.Key.setKeyTag()
+	stream.Operator.setOperatorContent("2")
+	stream.Key.setKeyContent(key)
 }
 
 func parseStruct(message string, startTag string, endTag string) string {
@@ -121,8 +136,8 @@ func parseStruct(message string, startTag string, endTag string) string {
 
 // ParsePutStream parses the stream of PUT.
 // operatorTag:
-// 0: Put, 1: Delete
-func ParsePutStream(m string) {
+// 0: Put, 1: Delete, 2: Get
+func ParsePutStream(m string) error {
 	operatorTag := parseStruct(m, ":", "\n")
 	keyContent := parseStruct(m, "$", "\n")
 	valueContent := parseStruct(m, "-", "\n")
@@ -131,12 +146,12 @@ func ParsePutStream(m string) {
 		log.Println("error")
 	}
 
-	db.PutData(keyContent, valueContent)
+	return db.PutData(keyContent, valueContent)
 }
 
 // ParseDeleteStream parses the stream of DELETE.
 // operatorTag:
-// 0: Put, 1: Delete
+// 0: Put, 1: Delete, 2: Get
 func ParseDeleteStream(m string) {
 	operatorTag := parseStruct(m, ":", "\n")
 	keyContent := parseStruct(m, "$", "\n")
@@ -150,4 +165,24 @@ func ParseDeleteStream(m string) {
 	}
 
 	db.DeleteData(keyContent)
+}
+
+// ParseGetStream parses the stream of GET.
+// operatorTag:
+// 0: Put, 1: Delete, 2: Get
+func ParseGetStream(m string) string {
+	operatorTag := parseStruct(m, ":", "\n")
+	keyContent := parseStruct(m, "$", "\n")
+	valueContent := parseStruct(m, "-", "\n")
+
+	if operatorTag != "2" {
+		log.Println("error")
+	}
+	if valueContent != "" {
+		log.Println("error")
+	}
+
+	s, _ := db.GetData(keyContent)
+
+	return s
 }

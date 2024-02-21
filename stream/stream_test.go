@@ -13,9 +13,9 @@ import (
 
 func TestGeneratePutStream(t *testing.T) {
 	stream1 := GeneratePutStream("key1", "value1")
-	operatorStream1 := stream1.operator.startTag + stream1.operator.operatorContent + stream1.operator.endTag
-	keyStream1 := stream1.key.startTag + stream1.key.keyContent + stream1.key.endTag
-	valueStream1 := stream1.value.startTag + stream1.value.valueContent + stream1.value.endTag
+	operatorStream1 := stream1.Operator.StartTag + stream1.Operator.OperatorContent + stream1.Operator.EndTag
+	keyStream1 := stream1.Key.StartTag + stream1.Key.KeyContent + stream1.Key.EndTag
+	valueStream1 := stream1.Value.StartTag + stream1.Value.ValueContent + stream1.Value.EndTag
 	fmt.Println(operatorStream1 + keyStream1 + valueStream1)
 }
 

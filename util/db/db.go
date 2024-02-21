@@ -51,11 +51,8 @@ func GetAllData() {
 }
 
 // PutData is a function to add key-value in database.
-func PutData(k string, v string) {
-	err := db.Put([]byte(k), []byte(v), nil)
-	if err != nil {
-		log.Println(err)
-	}
+func PutData(k string, v string) error {
+	return db.Put([]byte(k), []byte(v), nil)
 }
 
 // DeleteData is a function to delete the value from a key.

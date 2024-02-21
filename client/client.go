@@ -45,10 +45,19 @@ func Connect(tcpAddress string) {
 	}
 }
 
-func Put(key string, value string) {
-	stream.GeneratePutStream(key, value)
+func Put(key string, value string) error {
+	s := stream.GeneratePutStream(key, value)
+	operatorString := s.Operator.StartTag + s.Operator.OperatorContent + s.Operator.EndTag
+	keyString := s.Key.StartTag + s.Key.KeyContent + s.Key.EndTag
+	valueString := s.Value.StartTag + s.Value.ValueContent + s.Value.EndTag
+	return stream.ParsePutStream(operatorString + keyString + valueString)
 }
 
 func Delete(key string) {
 	stream.GenerateDeleteStream(key)
+}
+
+func Get(key string) string {
+	stream.GenerateGetStream(key)
+	return ""
 }
