@@ -38,17 +38,17 @@ type valueStruct struct {
 
 func (b *operatorStruct) setOperatorTag() {
 	b.StartTag = ":"
-	b.EndTag = "\\n"
+	b.EndTag = "\n"
 }
 
 func (b *keyStruct) setKeyTag() {
 	b.StartTag = "$"
-	b.EndTag = "\\n"
+	b.EndTag = "\n"
 }
 
 func (b *valueStruct) setValueTag() {
 	b.StartTag = "-"
-	b.EndTag = "\\n"
+	b.EndTag = "\n"
 }
 
 func (b *operatorStruct) setOperatorContent(s string) {
@@ -113,7 +113,7 @@ func GenerateGetStream(key string) {
 }
 
 func parseStruct(message string, startTag string, endTag string) string {
-	messageSlice := []rune(message)
+	messageSlice := []byte(message)
 	var startTagIndex, endTagIndex int
 
 	for k, v := range messageSlice {

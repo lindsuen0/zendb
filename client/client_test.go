@@ -9,6 +9,6 @@ package client
 import "testing"
 
 func TestConnect(t *testing.T) {
-	Connect("127.0.0.1:4780")
-	t.Log("The tcp connection has been established.")
+	db := Connect("127.0.0.1:4780")
+	db.Put("key1ssssssss", "value2sssssss1")
 }

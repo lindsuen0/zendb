@@ -11,6 +11,7 @@ import (
 	"log"
 	"net"
 
+	"github.com/lindsuen0/zendb/stream"
 	"github.com/lindsuen0/zendb/util/config"
 	"github.com/lindsuen0/zendb/util/db"
 )
@@ -23,16 +24,16 @@ func init() {
 func main() {
 	listener, err := net.Listen("tcp", "127.0.0.1:"+config.DBConfig.Port)
 	if err != nil {
-		log.Fatalln("Error listening: ", err.Error())
+		log.Fatalln("[ZenDB] Error listening: ", err.Error())
 	}
 	defer listener.Close()
 
-	log.Println("ZenDB server has been started. Listening on port " + config.DBConfig.Port + "...")
+	log.Println("[ZenDB] ZenDB server has been started. Listening on port " + config.DBConfig.Port + "...")
 
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
-			log.Fatalln("Error accepting connection: ", err.Error())
+			log.Fatalln("[ZenDB] Error accepting connection: ", err.Error())
 		}
 
 		go handleConnection(conn)
@@ -44,14 +45,18 @@ func handleConnection(conn net.Conn) {
 
 	for {
 		reader := bufio.NewReader(conn)
-		var buf [4096]byte
+		var buf [512]byte
 		n, err := reader.Read(buf[:])
 		if err != nil {
-			log.Println("An existing connection was closed by the remote host.")
+			log.Println("[ZenDB] An existing connection was closed by the remote host.")
 			break
 		}
 		recvStr := string(buf[:n])
-		log.Println("Recived msg from client: , message: ", recvStr)
-		conn.Write([]byte(recvStr))
+		log.Printf("[ZenDB] Recived message: %q", recvStr)
+		errOfParse := stream.ParsePutStream(recvStr)
+		if errOfParse != nil {
+			log.Println(errOfParse)
+		}
+		// conn.Write([]byte(recvStr))
 	}
 }

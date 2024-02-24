@@ -7,7 +7,6 @@
 package db
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/lindsuen0/zendb/util/config"
@@ -38,20 +37,21 @@ func GetData(k string) (string, error) {
 }
 
 // GetAllData is a function to get all values in database.
-func GetAllData() {
-	iter := db.NewIterator(nil, nil)
-	for iter.Next() {
-		// Remember that the contents of the returned slice should not be modified, and
-		// only valid until the next call to Next.
-		key := iter.Key()
-		value := iter.Value()
-		fmt.Println("Key: " + string(key))
-		fmt.Println("Value: " + string(value))
-	}
-}
+// func GetAllData() {
+// 	iter := db.NewIterator(nil, nil)
+// 	for iter.Next() {
+// 		// Remember that the contents of the returned slice should not be modified, and
+// 		// only valid until the next call to Next.
+// 		key := iter.Key()
+// 		value := iter.Value()
+// 		fmt.Println("Key: " + string(key))
+// 		fmt.Println("Value: " + string(value))
+// 	}
+// }
 
 // PutData is a function to add key-value in database.
 func PutData(k string, v string) error {
+	log.Println("[goLevelDB] key: \"" + k + "\", value: \"" + v + "\"")
 	return db.Put([]byte(k), []byte(v), nil)
 }
 

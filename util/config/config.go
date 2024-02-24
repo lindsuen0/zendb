@@ -29,7 +29,7 @@ func Setup() {
 	if err != nil {
 		log.Fatalln(err)
 	} else {
-		log.Printf("The profile %s is parsed successfully.\n", configPath)
+		log.Printf("[ZenDB] The profile %s is parsed successfully.\n", configPath)
 	}
 	mapTo("db", DBConfig)
 }
