@@ -15,7 +15,9 @@ __MACOSX/
 # Project
 bin/
 data/
+log/
 *.exe
 *.exe~
+*.log
 main
 zendb

@@ -15,6 +15,7 @@ import (
 type dbConfig struct {
 	Port string `ini:"port"`
 	Data string `ini:"data"`
+	Log  string `ini:"log"`
 }
 
 var DBConfig = new(dbConfig)

@@ -8,6 +8,7 @@ package main
 
 import (
 	"bufio"
+	logg "github.com/lindsuen0/zendb/util/log"
 	"log"
 	"net"
 
@@ -19,6 +20,7 @@ import (
 func init() {
 	config.Setup()
 	db.Setup()
+	logg.Setup()
 }
 
 func main() {
@@ -48,7 +50,7 @@ func handleConnection(conn net.Conn) {
 		var buf [512]byte
 		n, err := reader.Read(buf[:])
 		if err != nil {
-			log.Println("[ZenDB] An existing connection was closed by the remote host.")
+			logg.Println("An existing connection was closed by the remote host.")
 			break
 		}
 		recvStr := string(buf[:n])
