@@ -75,7 +75,7 @@ func (n *Driver) Delete(key string) {
 	}
 }
 
-func (n *Driver) Get(key string) {
+func (n *Driver) Get(key string) string {
 	p := s.GenerateGetStream(key)
 	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
@@ -84,6 +84,10 @@ func (n *Driver) Get(key string) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	buf := [512]byte{}
+	b, _ := n.Connection.Read(buf[:])
+	return string(buf[:b])
 }
 
 func mergeString(startTag string, content string, endTag string) string {

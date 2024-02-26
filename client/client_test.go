@@ -11,10 +11,19 @@ import (
 	"testing"
 )
 
-func TestConnect(t *testing.T) {
+func TestPut(t *testing.T) {
 	db, err := Connect("127.0.0.1:4780")
 	if err != nil {
 		fmt.Println(err)
 	}
 	db.Put("key1key2", "value1value2value3")
+}
+
+func TestGet(t *testing.T) {
+	db, err := Connect("127.0.0.1:4780")
+	if err != nil {
+		fmt.Println(err)
+	}
+	v := db.Get("key1key2")
+	fmt.Println(v)
 }
