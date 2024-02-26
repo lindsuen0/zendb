@@ -25,7 +25,7 @@ func Setup() {
 		log.Fatalln(err)
 	}
 
+	Logger = log.New(f, "", log.Ldate|log.Lmicroseconds)
 	multiWriter := io.MultiWriter(os.Stdout, f)
-	Logger = log.New(f, "[ZenDB] ", log.Ldate|log.Lmicroseconds)
 	Logger.SetOutput(multiWriter)
 }

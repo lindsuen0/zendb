@@ -9,7 +9,7 @@ package stream
 import (
 	"log"
 
-	"github.com/lindsuen0/zendb/util/db"
+	d "github.com/lindsuen0/zendb/util/db"
 )
 
 type Stream struct {
@@ -150,7 +150,7 @@ func ParsePutStream(m string) error {
 		log.Println("error")
 	}
 
-	return db.PutData(keyContent, valueContent)
+	return d.PutData(keyContent, valueContent)
 }
 
 // ParseDeleteStream parses the stream of DELETE.
@@ -168,7 +168,7 @@ func ParseDeleteStream(m string) {
 		log.Println("error")
 	}
 
-	db.DeleteData(keyContent)
+	d.DeleteData(keyContent)
 }
 
 // ParseGetStream parses the stream of GET.
@@ -186,7 +186,7 @@ func ParseGetStream(m string) string {
 		log.Println("error")
 	}
 
-	s, _ := db.GetData(keyContent)
+	s, _ := d.GetData(keyContent)
 
 	return s
 }

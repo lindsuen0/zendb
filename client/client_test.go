@@ -10,5 +10,5 @@ import "testing"
 
 func TestConnect(t *testing.T) {
 	db := Connect("127.0.0.1:4780")
-	db.Put("key1ssssssss", "value2sssssss1")
+	db.Put("key1key2", "value1value2value3")
 }

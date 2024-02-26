@@ -10,7 +10,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/lindsuen0/zendb/stream"
+	s "github.com/lindsuen0/zendb/stream"
 )
 
 type DB struct {
@@ -48,7 +48,7 @@ func Connect(tcpAddress string) DB {
 }
 
 func (n *DB) Put(key string, value string) {
-	s := stream.GeneratePutStream(key, value)
+	s := s.GeneratePutStream(key, value)
 	operatorString := s.Operator.StartTag + s.Operator.OperatorContent + s.Operator.EndTag
 	keyString := s.Key.StartTag + s.Key.KeyContent + s.Key.EndTag
 	valueString := s.Value.StartTag + s.Value.ValueContent + s.Value.EndTag
@@ -61,10 +61,10 @@ func (n *DB) Put(key string, value string) {
 }
 
 func (n *DB) Delete(key string) {
-	stream.GenerateDeleteStream(key)
+	s.GenerateDeleteStream(key)
 }
 
 func (n *DB) Get(key string) string {
-	stream.GenerateGetStream(key)
+	s.GenerateGetStream(key)
 	return ""
 }

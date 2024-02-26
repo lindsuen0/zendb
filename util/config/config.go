@@ -8,7 +8,7 @@ package config
 
 import (
 	"github.com/go-ini/ini"
-	logg "github.com/lindsuen0/zendb/util/log"
+	l "github.com/lindsuen0/zendb/util/log"
 )
 
 type dbConfig struct {
@@ -26,9 +26,9 @@ func Setup() {
 
 	cfg, err = ini.Load(configPath)
 	if err != nil {
-		logg.Logger.Fatalln(err)
+		l.Logger.Fatalln(err)
 	} else {
-		logg.Logger.Printf("The profile %s is parsed successfully.\n", configPath)
+		l.Logger.Printf("The profile %s is parsed successfully.\n", configPath)
 	}
 	mapTo("db", DBConfig)
 }
@@ -37,6 +37,6 @@ func Setup() {
 func mapTo(s string, v interface{}) {
 	err := cfg.Section(s).MapTo(v)
 	if err != nil {
-		logg.Logger.Fatalln(err)
+		l.Logger.Fatalln(err)
 	}
 }

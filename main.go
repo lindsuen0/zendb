@@ -10,32 +10,31 @@ import (
 	"bufio"
 	"net"
 
-	"github.com/lindsuen0/zendb/stream"
-	"github.com/lindsuen0/zendb/util/config"
-	"github.com/lindsuen0/zendb/util/db"
-	logg "github.com/lindsuen0/zendb/util/log"
+	s "github.com/lindsuen0/zendb/stream"
+	c "github.com/lindsuen0/zendb/util/config"
+	d "github.com/lindsuen0/zendb/util/db"
+	l "github.com/lindsuen0/zendb/util/log"
 )
 
 func init() {
-	logg.Setup()
-	config.Setup()
-	db.Setup()
-
+	l.Setup()
+	c.Setup()
+	d.Setup()
 }
 
 func main() {
-	listener, err := net.Listen("tcp", "127.0.0.1:"+config.DBConfig.Port)
+	listener, err := net.Listen("tcp", "127.0.0.1:"+c.DBConfig.Port)
 	if err != nil {
-		logg.Logger.Fatalln("Error listening: ", err.Error())
+		l.Logger.Fatalln("Error listening: ", err.Error())
 	}
 	defer listener.Close()
 
-	logg.Logger.Println("ZenDB server has been started. Listening on port " + config.DBConfig.Port + "...")
+	l.Logger.Println("ZenDB server has been started. Listening on port " + c.DBConfig.Port + "...")
 
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
-			logg.Logger.Fatalln("Error accepting connection: ", err.Error())
+			l.Logger.Fatalln("Error accepting connection: ", err.Error())
 		}
 
 		go handleConnection(conn)
@@ -50,21 +49,21 @@ func handleConnection(conn net.Conn) {
 		var buf [512]byte
 		n, err := reader.Read(buf[:])
 		if err != nil {
-			logg.Logger.Println("An existing connection was closed by the remote host.")
+			l.Logger.Println("An existing connection was closed by the remote host.")
 			break
 		}
 		recvStr := string(buf[:n])
-		logg.Logger.Printf("Recived message: %q", recvStr)
-		operatorTag := stream.PreParseStruct(recvStr)
+		l.Logger.Printf("Recived message: %q", recvStr)
+		operatorTag := s.PreParseStruct(recvStr)
 		if operatorTag == "0" {
-			errOfParse := stream.ParsePutStream(recvStr)
+			errOfParse := s.ParsePutStream(recvStr)
 			if errOfParse != nil {
-				logg.Logger.Println(errOfParse)
+				l.Logger.Println(errOfParse)
 			}
 		} else if operatorTag == "1" {
-			logg.Logger.Println("1: Delete")
+			l.Logger.Println("1: Delete")
 		} else if operatorTag == "2" {
-			logg.Logger.Println("2: Get")
+			l.Logger.Println("2: Get")
 		}
 	}
 }

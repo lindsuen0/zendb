@@ -10,8 +10,8 @@ import (
 	"log"
 
 	"github.com/lindsuen0/zendb/leveldb"
-	"github.com/lindsuen0/zendb/util/config"
-	logger "github.com/lindsuen0/zendb/util/log"
+	c "github.com/lindsuen0/zendb/util/config"
+	l "github.com/lindsuen0/zendb/util/log"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 )
 
 func Setup() {
-	dataPath := config.DBConfig.Data
+	dataPath := c.DBConfig.Data
 	db, err = leveldb.OpenFile(dataPath, nil)
 	if err != nil {
 		log.Fatalln(err)
@@ -51,7 +51,7 @@ func GetData(k string) (string, error) {
 
 // PutData is a function to add key-value in database.
 func PutData(k string, v string) error {
-	logger.Logger.Println("key: \"" + k + "\", value: \"" + v + "\"")
+	l.Logger.Println("key: \"" + k + "\", value: \"" + v + "\"")
 	return db.Put([]byte(k), []byte(v), nil)
 }
 
