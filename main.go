@@ -42,6 +42,20 @@ func main() {
 }
 
 func handleConnection(conn net.Conn) {
+	// defer conn.Close()
+	// // TODO
+	// for {
+	// 	reader := bufio.NewReader(conn)
+	// 	var buf [128]byte
+	// 	n, err := reader.Read(buf[:])
+	// 	if err != nil {
+	// 		fmt.Println("read from client failed, err: ", err)
+	// 		break
+	// 	}
+	// 	recvStr := string(buf[:n])
+	// 	fmt.Println("have recived msg from client: ", recvStr)
+	// 	conn.Write([]byte(recvStr))
+	// }
 	defer conn.Close()
 
 	for {
@@ -61,9 +75,9 @@ func handleConnection(conn net.Conn) {
 				l.Logger.Println(errOfParse)
 			}
 		} else if operatorTag == "1" {
-			l.Logger.Println("1: Delete")
+			s.ParseDeleteStream(recvStr)
 		} else if operatorTag == "2" {
-			l.Logger.Println("2: Get")
+			conn.Write([]byte(s.ParseGetStream(recvStr)))
 		}
 	}
 }

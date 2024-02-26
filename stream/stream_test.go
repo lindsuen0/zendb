@@ -24,7 +24,9 @@ func TestGenerateDeleteStream(t *testing.T) {
 }
 
 func TestParseStruct(t *testing.T) {
-	s := ":0\n$KEY321\n-VALUE123\n"
+	// s := ":0\n$KEY321\n-VALUE123\n"
+	// s := ":0\n$KEY321\n"
+	s := ":0\n$KEY321\n-\n"
 	// d := parseStruct(s, ":", "\n")
 	// d := parseStruct(s, "$", "\n")
 	d := parseStruct(s, "-", "\n")

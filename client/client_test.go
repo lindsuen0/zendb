@@ -6,9 +6,15 @@
 
 package client
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestConnect(t *testing.T) {
-	db := Connect("127.0.0.1:4780")
+	db, err := Connect("127.0.0.1:4780")
+	if err != nil {
+		fmt.Println(err)
+	}
 	db.Put("key1key2", "value1value2value3")
 }

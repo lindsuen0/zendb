@@ -7,21 +7,21 @@
 package client
 
 import (
-	"log"
+	"fmt"
 	"net"
+	"os"
 
 	s "github.com/lindsuen0/zendb/stream"
 )
 
-type DB struct {
-	ZenDBConnect net.Conn
+type Driver struct {
+	Connection net.Conn
+	Hostname   string
 }
 
-func Connect(tcpAddress string) DB {
+func Connect(tcpAddress string) (*Driver, error) {
 	conn, err := net.Dial("tcp", tcpAddress)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	hostname, _ := os.Hostname()
 	// defer conn.Close()
 
 	// inputReader := bufio.NewReader(os.Stdin)
@@ -44,27 +44,48 @@ func Connect(tcpAddress string) DB {
 	// 	log.Println(string(buf[:n]))
 	// }
 
-	return DB{conn}
+	// for {
+
+	// }
+	return &Driver{
+		conn,
+		hostname}, err
 }
 
-func (n *DB) Put(key string, value string) {
-	s := s.GeneratePutStream(key, value)
-	operatorString := s.Operator.StartTag + s.Operator.OperatorContent + s.Operator.EndTag
-	keyString := s.Key.StartTag + s.Key.KeyContent + s.Key.EndTag
-	valueString := s.Value.StartTag + s.Value.ValueContent + s.Value.EndTag
-	_, err := (*n).ZenDBConnect.Write([]byte(operatorString + keyString + valueString))
+func (n *Driver) Put(key string, value string) {
+	p := s.GeneratePutStream(key, value)
+	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
+	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
+	valueString := mergeString(p.Value.StartTag, p.Value.ValueContent, p.Value.EndTag)
+
+	_, err := n.Connection.Write([]byte(operatorString + keyString + valueString))
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
 	}
-	// log.Println(operatorString + keyString + valueString)
-	// stream.ParsePutStream(operatorString + keyString + valueString)
 }
 
-func (n *DB) Delete(key string) {
-	s.GenerateDeleteStream(key)
+func (n *Driver) Delete(key string) {
+	p := s.GenerateGetStream(key)
+	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
+	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
+
+	_, err := n.Connection.Write([]byte(operatorString + keyString))
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
-func (n *DB) Get(key string) string {
-	s.GenerateGetStream(key)
-	return ""
+func (n *Driver) Get(key string) {
+	p := s.GenerateGetStream(key)
+	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
+	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
+
+	_, err := n.Connection.Write([]byte(operatorString + keyString))
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func mergeString(startTag string, content string, endTag string) string {
+	return startTag + content + endTag
 }

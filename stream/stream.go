@@ -89,12 +89,13 @@ func GeneratePutStream(key string, value string) Stream {
 // stream:
 // stream.Operator.StartTag+stream.Operator.OperatorContent+stream.Operator.EndTag
 // stream.Key.StartTag+stream.Key.KeyContent+stream.Key.EndTag
-func GenerateDeleteStream(key string) {
+func GenerateDeleteStream(key string) Stream {
 	stream := new(Stream)
 	stream.Operator.setOperatorTag()
 	stream.Key.setKeyTag()
 	stream.Operator.setOperatorContent("1")
 	stream.Key.setKeyContent(key)
+	return *stream
 }
 
 // GenerateGetStream
@@ -104,12 +105,13 @@ func GenerateDeleteStream(key string) {
 // stream:
 // stream.Operator.StartTag+stream.Operator.OperatorContent+stream.Operator.EndTag
 // stream.Key.StartTag+stream.Key.KeyContent+stream.Key.EndTag
-func GenerateGetStream(key string) {
+func GenerateGetStream(key string) Stream {
 	stream := new(Stream)
 	stream.Operator.setOperatorTag()
 	stream.Key.setKeyTag()
 	stream.Operator.setOperatorContent("2")
 	stream.Key.setKeyContent(key)
+	return *stream
 }
 
 func PreParseStruct(message string) string {
@@ -125,6 +127,9 @@ func parseStruct(message string, startTag string, endTag string) string {
 			startTagIndex = k
 			break
 		}
+		// } else if string(v) != startTag {
+		// 	return ""
+		// }
 	}
 
 	tempIndex := startTagIndex
@@ -159,12 +164,8 @@ func ParsePutStream(m string) error {
 func ParseDeleteStream(m string) {
 	operatorTag := parseStruct(m, ":", "\n")
 	keyContent := parseStruct(m, "$", "\n")
-	valueContent := parseStruct(m, "-", "\n")
 
 	if operatorTag != "1" {
-		log.Println("error")
-	}
-	if valueContent != "" {
 		log.Println("error")
 	}
 
@@ -177,16 +178,11 @@ func ParseDeleteStream(m string) {
 func ParseGetStream(m string) string {
 	operatorTag := parseStruct(m, ":", "\n")
 	keyContent := parseStruct(m, "$", "\n")
-	valueContent := parseStruct(m, "-", "\n")
 
 	if operatorTag != "2" {
 		log.Println("error")
 	}
-	if valueContent != "" {
-		log.Println("error")
-	}
 
 	s, _ := d.GetData(keyContent)
-
 	return s
 }
