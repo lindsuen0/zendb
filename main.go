@@ -8,34 +8,34 @@ package main
 
 import (
 	"bufio"
-	logg "github.com/lindsuen0/zendb/util/log"
-	"log"
 	"net"
 
 	"github.com/lindsuen0/zendb/stream"
 	"github.com/lindsuen0/zendb/util/config"
 	"github.com/lindsuen0/zendb/util/db"
+	logg "github.com/lindsuen0/zendb/util/log"
 )
 
 func init() {
+	logg.Setup()
 	config.Setup()
 	db.Setup()
-	logg.Setup()
+
 }
 
 func main() {
 	listener, err := net.Listen("tcp", "127.0.0.1:"+config.DBConfig.Port)
 	if err != nil {
-		log.Fatalln("[ZenDB] Error listening: ", err.Error())
+		logg.Logger.Fatalln("Error listening: ", err.Error())
 	}
 	defer listener.Close()
 
-	log.Println("[ZenDB] ZenDB server has been started. Listening on port " + config.DBConfig.Port + "...")
+	logg.Logger.Println("ZenDB server has been started. Listening on port " + config.DBConfig.Port + "...")
 
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
-			log.Fatalln("[ZenDB] Error accepting connection: ", err.Error())
+			logg.Logger.Fatalln("Error accepting connection: ", err.Error())
 		}
 
 		go handleConnection(conn)
@@ -50,15 +50,21 @@ func handleConnection(conn net.Conn) {
 		var buf [512]byte
 		n, err := reader.Read(buf[:])
 		if err != nil {
-			logg.Println("An existing connection was closed by the remote host.")
+			logg.Logger.Println("An existing connection was closed by the remote host.")
 			break
 		}
 		recvStr := string(buf[:n])
-		log.Printf("[ZenDB] Recived message: %q", recvStr)
-		errOfParse := stream.ParsePutStream(recvStr)
-		if errOfParse != nil {
-			log.Println(errOfParse)
+		logg.Logger.Printf("Recived message: %q", recvStr)
+		operatorTag := stream.PreParseStruct(recvStr)
+		if operatorTag == "0" {
+			errOfParse := stream.ParsePutStream(recvStr)
+			if errOfParse != nil {
+				logg.Logger.Println(errOfParse)
+			}
+		} else if operatorTag == "1" {
+			logg.Logger.Println("1: Delete")
+		} else if operatorTag == "2" {
+			logg.Logger.Println("2: Get")
 		}
-		// conn.Write([]byte(recvStr))
 	}
 }

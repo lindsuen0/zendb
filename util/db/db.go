@@ -9,9 +9,9 @@ package db
 import (
 	"log"
 
-	"github.com/lindsuen0/zendb/util/config"
-
 	"github.com/lindsuen0/zendb/leveldb"
+	"github.com/lindsuen0/zendb/util/config"
+	logger "github.com/lindsuen0/zendb/util/log"
 )
 
 var (
@@ -51,7 +51,7 @@ func GetData(k string) (string, error) {
 
 // PutData is a function to add key-value in database.
 func PutData(k string, v string) error {
-	log.Println("[goLevelDB] key: \"" + k + "\", value: \"" + v + "\"")
+	logger.Logger.Println("key: \"" + k + "\", value: \"" + v + "\"")
 	return db.Put([]byte(k), []byte(v), nil)
 }
 

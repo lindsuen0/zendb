@@ -7,15 +7,13 @@
 package config
 
 import (
-	"log"
-
 	"github.com/go-ini/ini"
+	logg "github.com/lindsuen0/zendb/util/log"
 )
 
 type dbConfig struct {
 	Port string `ini:"port"`
 	Data string `ini:"data"`
-	Log  string `ini:"log"`
 }
 
 var DBConfig = new(dbConfig)
@@ -28,9 +26,9 @@ func Setup() {
 
 	cfg, err = ini.Load(configPath)
 	if err != nil {
-		log.Fatalln(err)
+		logg.Logger.Fatalln(err)
 	} else {
-		log.Printf("[ZenDB] The profile %s is parsed successfully.\n", configPath)
+		logg.Logger.Printf("The profile %s is parsed successfully.\n", configPath)
 	}
 	mapTo("db", DBConfig)
 }
@@ -39,6 +37,6 @@ func Setup() {
 func mapTo(s string, v interface{}) {
 	err := cfg.Section(s).MapTo(v)
 	if err != nil {
-		log.Fatalln(err)
+		logg.Logger.Fatalln(err)
 	}
 }

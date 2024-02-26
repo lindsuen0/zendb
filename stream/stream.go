@@ -112,6 +112,10 @@ func GenerateGetStream(key string) {
 	stream.Key.setKeyContent(key)
 }
 
+func PreParseStruct(message string) string {
+	return parseStruct(message, ":", "\n")
+}
+
 func parseStruct(message string, startTag string, endTag string) string {
 	messageSlice := []byte(message)
 	var startTagIndex, endTagIndex int
