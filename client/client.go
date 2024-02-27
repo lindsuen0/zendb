@@ -63,7 +63,7 @@ func (n *Driver) Delete(key []byte) {
 	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 
-	_, err := n.Connection.Write(append(append(operatorString, keyString...)))
+	_, err := n.Connection.Write(append(operatorString, keyString...))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -74,7 +74,7 @@ func (n *Driver) Get(key []byte) string {
 	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 
-	_, err := n.Connection.Write(append(append(operatorString, keyString...)))
+	_, err := n.Connection.Write(append(operatorString, keyString...))
 	if err != nil {
 		fmt.Println(err)
 	}
