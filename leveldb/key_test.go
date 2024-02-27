@@ -10,7 +10,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/lindsuen0/zendb/leveldb/comparer"
+	"github.com/lindsuen0/canodb/leveldb/comparer"
 )
 
 var defaultIComparer = &iComparer{comparer.DefaultComparer}

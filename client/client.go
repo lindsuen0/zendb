@@ -1,4 +1,4 @@
-// zendb - client.go
+// canodb - client.go
 // Copyright (C) 2024 LindSuen <lindsuen@foxmail.com>
 //
 // Use of this source code is governed by a BSD 2-Clause License that can be
@@ -11,7 +11,7 @@ import (
 	"net"
 	"os"
 
-	s "github.com/lindsuen0/zendb/stream"
+	s "github.com/lindsuen0/canodb/stream"
 )
 
 type Driver struct {

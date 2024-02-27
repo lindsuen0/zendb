@@ -7,7 +7,7 @@
 package iterator
 
 import (
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 // BasicArray is the interface that wraps basic Len and Search method.

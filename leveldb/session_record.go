@@ -12,8 +12,8 @@ import (
 	"io"
 	"strings"
 
-	"github.com/lindsuen0/zendb/leveldb/errors"
-	"github.com/lindsuen0/zendb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/errors"
+	"github.com/lindsuen0/canodb/leveldb/storage"
 )
 
 type byteReader interface {

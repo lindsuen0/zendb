@@ -1,4 +1,4 @@
-// zendb - stream.go
+// canodb - stream.go
 // Copyright (C) 2024 LindSuen <lindsuen@foxmail.com>
 //
 // Use of this source code is governed by a BSD 2-Clause License that can be
@@ -9,7 +9,7 @@ package stream
 import (
 	"log"
 
-	d "github.com/lindsuen0/zendb/util/db"
+	d "github.com/lindsuen0/canodb/util/db"
 )
 
 type Stream struct {

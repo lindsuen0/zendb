@@ -1,4 +1,4 @@
-APP := zendb
+APP := canodb
 VERSION := 1.0.0
 DIR := bin
 

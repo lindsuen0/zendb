@@ -1,4 +1,4 @@
-// zendb - config.go
+// canodb - config.go
 // Copyright (C) 2024 LindSuen <lindsuen@foxmail.com>
 //
 // Use of this source code is governed by a BSD 2-Clause License that can be
@@ -8,7 +8,7 @@ package config
 
 import (
 	"github.com/go-ini/ini"
-	l "github.com/lindsuen0/zendb/util/log"
+	l "github.com/lindsuen0/canodb/util/log"
 )
 
 type dbConfig struct {

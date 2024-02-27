@@ -3,7 +3,7 @@ package leveldb
 import (
 	"sync/atomic"
 
-	"github.com/lindsuen0/zendb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/storage"
 )
 
 type iStorage struct {

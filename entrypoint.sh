@@ -3,8 +3,8 @@
 set -e
 
 function main() {
-    cd ${ZENDB_HOME} || exit
-    ./zendb
+    cd ${CANODB_HOME} || exit
+    ./canodb
 }
 
 main

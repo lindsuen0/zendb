@@ -13,7 +13,7 @@ import (
 	"sync/atomic"
 	"unsafe"
 
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 // Cacher provides interface to implements a caching functionality.

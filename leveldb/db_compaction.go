@@ -12,9 +12,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/lindsuen0/zendb/leveldb/errors"
-	"github.com/lindsuen0/zendb/leveldb/opt"
-	"github.com/lindsuen0/zendb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/errors"
+	"github.com/lindsuen0/canodb/leveldb/opt"
+	"github.com/lindsuen0/canodb/leveldb/storage"
 )
 
 var (

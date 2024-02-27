@@ -10,9 +10,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/lindsuen0/zendb/leveldb/memdb"
-	"github.com/lindsuen0/zendb/leveldb/opt"
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/memdb"
+	"github.com/lindsuen0/canodb/leveldb/opt"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 func (db *DB) writeJournal(batches []*Batch, seq uint64, sync bool) error {

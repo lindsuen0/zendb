@@ -7,8 +7,8 @@
 package iterator
 
 import (
-	"github.com/lindsuen0/zendb/leveldb/errors"
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/errors"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 // IteratorIndexer is the interface that wraps CommonIterator and basic Get

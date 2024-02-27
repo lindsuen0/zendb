@@ -1,6 +1,6 @@
-# ZenDB
+# CanoDB
 
-ZenDB is a key-value database based on goLevelDB.
+CanoDB is a key-value database based on goLevelDB.
 
 ## Requirement
 
@@ -12,8 +12,8 @@ Connect to a database:
 
 ```go
 // ...
-// The default port of ZenDB server is 4780.
-db, err := client.Connect("127.0.0.1:4780")
+// The default port of CanoDB server is 4644.
+db, err := client.Connect("127.0.0.1:4644")
 // ...
 ```
 
@@ -38,7 +38,7 @@ make build
 ```
 
 ```sh
-docker build --no-cache -t zendb/zendb-server:latest .
+docker build --no-cache -t canodb/canodb-server:latest .
 ```
 
 ## License

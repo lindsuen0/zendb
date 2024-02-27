@@ -12,9 +12,9 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/lindsuen0/zendb/leveldb/iterator"
-	"github.com/lindsuen0/zendb/leveldb/opt"
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/iterator"
+	"github.com/lindsuen0/canodb/leveldb/opt"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 type memdbReleaser struct {

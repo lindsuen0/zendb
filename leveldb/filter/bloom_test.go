@@ -10,7 +10,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 type harness struct {

@@ -9,9 +9,9 @@ package iterator
 import (
 	"container/heap"
 
-	"github.com/lindsuen0/zendb/leveldb/comparer"
-	"github.com/lindsuen0/zendb/leveldb/errors"
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/comparer"
+	"github.com/lindsuen0/canodb/leveldb/errors"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 type dir int

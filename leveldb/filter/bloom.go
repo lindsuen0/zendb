@@ -7,7 +7,7 @@
 package filter
 
 import (
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 func bloomHash(key []byte) uint32 {

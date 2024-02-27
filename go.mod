@@ -1,4 +1,4 @@
-module github.com/lindsuen0/zendb
+module github.com/lindsuen0/canodb
 
 go 1.21.7
 

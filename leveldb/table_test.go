@@ -12,8 +12,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/lindsuen0/zendb/leveldb/storage"
-	"github.com/lindsuen0/zendb/leveldb/testutil"
+	"github.com/lindsuen0/canodb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/testutil"
 	"github.com/onsi/gomega"
 )
 

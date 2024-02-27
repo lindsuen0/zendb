@@ -11,9 +11,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/lindsuen0/zendb/leveldb/errors"
-	"github.com/lindsuen0/zendb/leveldb/memdb"
-	"github.com/lindsuen0/zendb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/errors"
+	"github.com/lindsuen0/canodb/leveldb/memdb"
+	"github.com/lindsuen0/canodb/leveldb/storage"
 )
 
 // ErrBatchCorrupted records reason of batch corruption. This error will be

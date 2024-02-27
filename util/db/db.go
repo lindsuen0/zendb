@@ -1,4 +1,4 @@
-// zendb - db.go
+// canodb - db.go
 // Copyright (C) 2024 LindSuen <lindsuen@foxmail.com>
 //
 // Use of this source code is governed by a BSD 2-Clause License that can be
@@ -9,9 +9,9 @@ package db
 import (
 	"log"
 
-	"github.com/lindsuen0/zendb/leveldb"
-	c "github.com/lindsuen0/zendb/util/config"
-	l "github.com/lindsuen0/zendb/util/log"
+	"github.com/lindsuen0/canodb/leveldb"
+	c "github.com/lindsuen0/canodb/util/config"
+	l "github.com/lindsuen0/canodb/util/log"
 )
 
 var (

@@ -1,12 +1,12 @@
 FROM debian:stable-slim
 
-ENV ZENDB_HOME=/var/lib/zendb
+ENV CANODB_HOME=/var/lib/canodb
 
-WORKDIR ${ZENDB_HOME}
+WORKDIR ${CANODB_HOME}
 
-COPY config ${ZENDB_HOME}/config
+COPY config ${CANODB_HOME}/config
 
-COPY bin/zendb ${ZENDB_HOME}/zendb
+COPY bin/canodb ${CANODB_HOME}/canodb
 
 COPY entrypoint.sh /entrypoint.sh
 

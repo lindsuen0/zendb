@@ -20,4 +20,4 @@ log/
 *.exe~
 *.log
 main
-zendb
+canodb

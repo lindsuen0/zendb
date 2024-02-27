@@ -3,7 +3,7 @@ package leveldb
 import (
 	"testing"
 
-	"github.com/lindsuen0/zendb/leveldb/testutil"
+	"github.com/lindsuen0/canodb/leveldb/testutil"
 )
 
 func TestLevelDB(t *testing.T) {

@@ -1,4 +1,4 @@
-// zendb - client_test.go
+// canodb - client_test.go
 // Copyright (C) 2024 LindSuen <lindsuen@foxmail.com>
 //
 // Use of this source code is governed by a BSD 2-Clause License that can be
@@ -12,7 +12,7 @@ import (
 )
 
 func TestPut(t *testing.T) {
-	db, err := Connect("127.0.0.1:4780")
+	db, err := Connect("127.0.0.1:4644")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -20,7 +20,7 @@ func TestPut(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	db, err := Connect("127.0.0.1:4780")
+	db, err := Connect("127.0.0.1:4644")
 	if err != nil {
 		fmt.Println(err)
 	}

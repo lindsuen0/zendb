@@ -11,10 +11,10 @@ import (
 	"math/rand"
 	"sync"
 
-	"github.com/lindsuen0/zendb/leveldb/comparer"
-	"github.com/lindsuen0/zendb/leveldb/errors"
-	"github.com/lindsuen0/zendb/leveldb/iterator"
-	"github.com/lindsuen0/zendb/leveldb/util"
+	"github.com/lindsuen0/canodb/leveldb/comparer"
+	"github.com/lindsuen0/canodb/leveldb/errors"
+	"github.com/lindsuen0/canodb/leveldb/iterator"
+	"github.com/lindsuen0/canodb/leveldb/util"
 )
 
 // Common errors.

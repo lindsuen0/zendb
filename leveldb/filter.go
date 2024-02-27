@@ -7,7 +7,7 @@
 package leveldb
 
 import (
-	"github.com/lindsuen0/zendb/leveldb/filter"
+	"github.com/lindsuen0/canodb/leveldb/filter"
 )
 
 type iFilter struct {

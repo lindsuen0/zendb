@@ -14,9 +14,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lindsuen0/zendb/leveldb/filter"
-	"github.com/lindsuen0/zendb/leveldb/opt"
-	"github.com/lindsuen0/zendb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/filter"
+	"github.com/lindsuen0/canodb/leveldb/opt"
+	"github.com/lindsuen0/canodb/leveldb/storage"
 )
 
 const ctValSize = 1000

@@ -11,7 +11,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/lindsuen0/zendb/leveldb/comparer"
+	"github.com/lindsuen0/canodb/leveldb/comparer"
 )
 
 func BenchmarkPut(b *testing.B) {

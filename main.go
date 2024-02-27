@@ -1,4 +1,4 @@
-// zendb - main.go
+// canodb - main.go
 // Copyright (C) 2024 LindSuen <lindsuen@foxmail.com>
 //
 // Use of this source code is governed by a BSD 2-Clause License that can be
@@ -10,10 +10,10 @@ import (
 	"bufio"
 	"net"
 
-	s "github.com/lindsuen0/zendb/stream"
-	c "github.com/lindsuen0/zendb/util/config"
-	d "github.com/lindsuen0/zendb/util/db"
-	l "github.com/lindsuen0/zendb/util/log"
+	s "github.com/lindsuen0/canodb/stream"
+	c "github.com/lindsuen0/canodb/util/config"
+	d "github.com/lindsuen0/canodb/util/db"
+	l "github.com/lindsuen0/canodb/util/log"
 )
 
 func init() {
@@ -29,7 +29,7 @@ func main() {
 	}
 	defer listener.Close()
 
-	l.Logger.Println("ZenDB server has been started. Listening on port " + c.DBConfig.Port + "...")
+	l.Logger.Println("CanoDB server has been started. Listening on port " + c.DBConfig.Port + "...")
 
 	for {
 		conn, err := listener.Accept()

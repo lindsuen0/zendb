@@ -7,7 +7,7 @@
 package leveldb
 
 import (
-	"github.com/lindsuen0/zendb/leveldb/comparer"
+	"github.com/lindsuen0/canodb/leveldb/comparer"
 )
 
 type iComparer struct {

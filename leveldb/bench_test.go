@@ -16,9 +16,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/lindsuen0/zendb/leveldb/iterator"
-	"github.com/lindsuen0/zendb/leveldb/opt"
-	"github.com/lindsuen0/zendb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/iterator"
+	"github.com/lindsuen0/canodb/leveldb/opt"
+	"github.com/lindsuen0/canodb/leveldb/storage"
 )
 
 func randomString(r *rand.Rand, n int) []byte {

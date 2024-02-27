@@ -7,8 +7,8 @@
 package leveldb
 
 import (
-	"github.com/lindsuen0/zendb/leveldb/filter"
-	"github.com/lindsuen0/zendb/leveldb/opt"
+	"github.com/lindsuen0/canodb/leveldb/filter"
+	"github.com/lindsuen0/canodb/leveldb/opt"
 )
 
 func dupOptions(o *opt.Options) *opt.Options {

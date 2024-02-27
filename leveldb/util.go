@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/lindsuen0/zendb/leveldb/storage"
+	"github.com/lindsuen0/canodb/leveldb/storage"
 )
 
 func shorten(str string) string {

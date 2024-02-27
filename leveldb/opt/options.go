@@ -10,9 +10,9 @@ package opt
 import (
 	"math"
 
-	"github.com/lindsuen0/zendb/leveldb/cache"
-	"github.com/lindsuen0/zendb/leveldb/comparer"
-	"github.com/lindsuen0/zendb/leveldb/filter"
+	"github.com/lindsuen0/canodb/leveldb/cache"
+	"github.com/lindsuen0/canodb/leveldb/comparer"
+	"github.com/lindsuen0/canodb/leveldb/filter"
 )
 
 const (
