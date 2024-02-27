@@ -21,11 +21,11 @@ Read or modify the database content:
 
 ```go
 // ...
-db.Put("key", "value")
+db.Put([]byte("key"), []byte("value"))
 // ...
-value := db.Get("key")
+db.Delete([]byte("key"))
 // ...
-db.Delete("key")
+value := db.Get([]byte("key"))
 // ...
 ```
 
