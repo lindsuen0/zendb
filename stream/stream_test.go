@@ -12,23 +12,23 @@ import (
 )
 
 func TestGeneratePutStream(t *testing.T) {
-	stream1 := GeneratePutStream("key1", "value1")
-	operatorStream1 := stream1.Operator.StartTag + stream1.Operator.OperatorContent + stream1.Operator.EndTag
-	keyStream1 := stream1.Key.StartTag + stream1.Key.KeyContent + stream1.Key.EndTag
-	valueStream1 := stream1.Value.StartTag + stream1.Value.ValueContent + stream1.Value.EndTag
-	fmt.Println(operatorStream1 + keyStream1 + valueStream1)
+	stream1 := GeneratePutStream([]byte("key1"), []byte("value1"))
+	operatorStream1 := append(append(stream1.Operator.StartTag, stream1.Operator.OperatorContent...), stream1.Operator.EndTag...)
+	keyStream1 := append(append(stream1.Key.StartTag, stream1.Key.KeyContent...), stream1.Key.EndTag...)
+	valueStream1 := append(append(stream1.Value.StartTag, stream1.Value.ValueContent...), stream1.Value.EndTag...)
+	fmt.Println(string(append(append(operatorStream1, keyStream1...), valueStream1...)))
 }
 
 func TestGenerateDeleteStream(t *testing.T) {
-	GenerateDeleteStream("key1")
+	GenerateDeleteStream([]byte("key1"))
 }
 
 func TestParseStruct(t *testing.T) {
-	// s := ":0\n$KEY321\n-VALUE123\n"
-	// s := ":0\n$KEY321\n"
-	s := ":0\n$KEY321\n-\n"
+	// s := []byte(":0\n$KEY321\n-VALUE123\n")
+	// s := []byte(":0\n$KEY321\n")
+	s := []byte(":0\n$KEY321\n-\n")
 	// d := parseStruct(s, ":", "\n")
 	// d := parseStruct(s, "$", "\n")
 	d := parseStruct(s, "-", "\n")
-	fmt.Println(d)
+	fmt.Println(string(d))
 }

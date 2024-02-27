@@ -16,7 +16,7 @@ func TestPut(t *testing.T) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	db.Put("key1key2", "value1value2value3")
+	db.Put([]byte("key1a"), []byte("value2w"))
 }
 
 func TestGet(t *testing.T) {
@@ -24,6 +24,6 @@ func TestGet(t *testing.T) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	v := db.Get("key1key2")
+	v := db.Get([]byte("key1a"))
 	fmt.Println(v)
 }
