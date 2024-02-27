@@ -12,12 +12,12 @@ import (
 	"sort"
 	"sync/atomic"
 
-	"github.com/lindsuen0/canodb/leveldb/cache"
-	"github.com/lindsuen0/canodb/leveldb/iterator"
-	"github.com/lindsuen0/canodb/leveldb/opt"
-	"github.com/lindsuen0/canodb/leveldb/storage"
-	"github.com/lindsuen0/canodb/leveldb/table"
-	"github.com/lindsuen0/canodb/leveldb/util"
+	"github.com/lindsuen/canodb/leveldb/cache"
+	"github.com/lindsuen/canodb/leveldb/iterator"
+	"github.com/lindsuen/canodb/leveldb/opt"
+	"github.com/lindsuen/canodb/leveldb/storage"
+	"github.com/lindsuen/canodb/leveldb/table"
+	"github.com/lindsuen/canodb/leveldb/util"
 )
 
 // tFile holds basic information about a table.

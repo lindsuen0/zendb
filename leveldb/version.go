@@ -12,9 +12,9 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/lindsuen0/canodb/leveldb/iterator"
-	"github.com/lindsuen0/canodb/leveldb/opt"
-	"github.com/lindsuen0/canodb/leveldb/util"
+	"github.com/lindsuen/canodb/leveldb/iterator"
+	"github.com/lindsuen/canodb/leveldb/opt"
+	"github.com/lindsuen/canodb/leveldb/util"
 )
 
 type tSet struct {

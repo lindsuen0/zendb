@@ -11,7 +11,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/lindsuen0/canodb/leveldb/storage"
+	"github.com/lindsuen/canodb/leveldb/storage"
 )
 
 // Common errors.

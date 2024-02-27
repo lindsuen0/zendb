@@ -12,10 +12,10 @@ import (
 	"os"
 	"sync"
 
-	"github.com/lindsuen0/canodb/leveldb/errors"
-	"github.com/lindsuen0/canodb/leveldb/journal"
-	"github.com/lindsuen0/canodb/leveldb/opt"
-	"github.com/lindsuen0/canodb/leveldb/storage"
+	"github.com/lindsuen/canodb/leveldb/errors"
+	"github.com/lindsuen/canodb/leveldb/journal"
+	"github.com/lindsuen/canodb/leveldb/opt"
+	"github.com/lindsuen/canodb/leveldb/storage"
 )
 
 // ErrManifestCorrupted records manifest corruption. This error will be

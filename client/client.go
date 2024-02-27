@@ -11,7 +11,7 @@ import (
 	"net"
 	"os"
 
-	s "github.com/lindsuen0/canodb/stream"
+	s "github.com/lindsuen/canodb/stream"
 )
 
 type Driver struct {

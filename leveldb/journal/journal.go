@@ -83,9 +83,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/lindsuen0/canodb/leveldb/errors"
-	"github.com/lindsuen0/canodb/leveldb/storage"
-	"github.com/lindsuen0/canodb/leveldb/util"
+	"github.com/lindsuen/canodb/leveldb/errors"
+	"github.com/lindsuen/canodb/leveldb/storage"
+	"github.com/lindsuen/canodb/leveldb/util"
 )
 
 // These constants are part of the wire format and should not be changed.

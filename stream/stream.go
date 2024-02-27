@@ -9,7 +9,7 @@ package stream
 import (
 	"log"
 
-	d "github.com/lindsuen0/canodb/util/db"
+	d "github.com/lindsuen/canodb/util/db"
 )
 
 type Stream struct {

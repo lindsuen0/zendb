@@ -11,8 +11,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/lindsuen0/canodb/leveldb/journal"
-	"github.com/lindsuen0/canodb/leveldb/storage"
+	"github.com/lindsuen/canodb/leveldb/journal"
+	"github.com/lindsuen/canodb/leveldb/storage"
 )
 
 // Logging.

@@ -8,7 +8,7 @@ package config
 
 import (
 	"github.com/go-ini/ini"
-	l "github.com/lindsuen0/canodb/util/log"
+	l "github.com/lindsuen/canodb/util/log"
 )
 
 type dbConfig struct {

@@ -9,10 +9,10 @@ package leveldb
 import (
 	. "github.com/onsi/gomega"
 
-	"github.com/lindsuen0/canodb/leveldb/iterator"
-	"github.com/lindsuen0/canodb/leveldb/opt"
-	"github.com/lindsuen0/canodb/leveldb/testutil"
-	"github.com/lindsuen0/canodb/leveldb/util"
+	"github.com/lindsuen/canodb/leveldb/iterator"
+	"github.com/lindsuen/canodb/leveldb/opt"
+	"github.com/lindsuen/canodb/leveldb/testutil"
+	"github.com/lindsuen/canodb/leveldb/util"
 )
 
 type testingDB struct {

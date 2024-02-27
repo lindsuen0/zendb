@@ -7,7 +7,7 @@
 package leveldb
 
 import (
-	"github.com/lindsuen0/canodb/leveldb/errors"
+	"github.com/lindsuen/canodb/leveldb/errors"
 )
 
 // Common errors.

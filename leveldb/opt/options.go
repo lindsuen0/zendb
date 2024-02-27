@@ -10,9 +10,9 @@ package opt
 import (
 	"math"
 
-	"github.com/lindsuen0/canodb/leveldb/cache"
-	"github.com/lindsuen0/canodb/leveldb/comparer"
-	"github.com/lindsuen0/canodb/leveldb/filter"
+	"github.com/lindsuen/canodb/leveldb/cache"
+	"github.com/lindsuen/canodb/leveldb/comparer"
+	"github.com/lindsuen/canodb/leveldb/filter"
 )
 
 const (

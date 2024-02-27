@@ -9,9 +9,9 @@ package db
 import (
 	"log"
 
-	"github.com/lindsuen0/canodb/leveldb"
-	c "github.com/lindsuen0/canodb/util/config"
-	l "github.com/lindsuen0/canodb/util/log"
+	"github.com/lindsuen/canodb/leveldb"
+	c "github.com/lindsuen/canodb/util/config"
+	l "github.com/lindsuen/canodb/util/log"
 )
 
 var (

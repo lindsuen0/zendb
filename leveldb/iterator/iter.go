@@ -11,7 +11,7 @@ package iterator
 import (
 	"errors"
 
-	"github.com/lindsuen0/canodb/leveldb/util"
+	"github.com/lindsuen/canodb/leveldb/util"
 )
 
 var (

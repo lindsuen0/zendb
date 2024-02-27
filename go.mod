@@ -1,4 +1,4 @@
-module github.com/lindsuen0/canodb
+module github.com/lindsuen/canodb
 
 go 1.21.7
 

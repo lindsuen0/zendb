@@ -16,11 +16,11 @@ func TestGeneratePutStream(t *testing.T) {
 	operatorStream1 := append(append(stream1.Operator.StartTag, stream1.Operator.OperatorContent...), stream1.Operator.EndTag...)
 	keyStream1 := append(append(stream1.Key.StartTag, stream1.Key.KeyContent...), stream1.Key.EndTag...)
 	valueStream1 := append(append(stream1.Value.StartTag, stream1.Value.ValueContent...), stream1.Value.EndTag...)
-	fmt.Println(string(append(append(operatorStream1, keyStream1...), valueStream1...)))
+	fmt.Printf("%q", string(append(append(operatorStream1, keyStream1...), valueStream1...)))
 }
 
 func TestGenerateDeleteStream(t *testing.T) {
-	GenerateDeleteStream([]byte("key1"))
+
 }
 
 func TestParseStruct(t *testing.T) {

@@ -11,10 +11,10 @@ import (
 	"bytes"
 	"net"
 
-	s "github.com/lindsuen0/canodb/stream"
-	c "github.com/lindsuen0/canodb/util/config"
-	d "github.com/lindsuen0/canodb/util/db"
-	l "github.com/lindsuen0/canodb/util/log"
+	s "github.com/lindsuen/canodb/stream"
+	c "github.com/lindsuen/canodb/util/config"
+	d "github.com/lindsuen/canodb/util/db"
+	l "github.com/lindsuen/canodb/util/log"
 )
 
 func init() {
