@@ -27,38 +27,22 @@ func Setup() {
 	}
 }
 
-// GetData is a function to get the value from a key.
-func GetData(k string) (string, error) {
-	v, err := db.Get([]byte(k), nil)
-	if err != nil {
-		log.Println(err)
-	}
-	return string(v), err
+func PutData(k []byte, v []byte) error {
+	l.Logger.Println("key: \"" + string(k) + "\", value: \"" + string(v) + "\"")
+	return db.Put(k, v, nil)
 }
 
-// GetAllData is a function to get all values in database.
-// func GetAllData() {
-// 	iter := db.NewIterator(nil, nil)
-// 	for iter.Next() {
-// 		// Remember that the contents of the returned slice should not be modified, and
-// 		// only valid until the next call to Next.
-// 		key := iter.Key()
-// 		value := iter.Value()
-// 		fmt.Println("Key: " + string(key))
-// 		fmt.Println("Value: " + string(value))
-// 	}
-// }
-
-// PutData is a function to add key-value in database.
-func PutData(k string, v string) error {
-	l.Logger.Println("key: \"" + k + "\", value: \"" + v + "\"")
-	return db.Put([]byte(k), []byte(v), nil)
+func DeleteData(k []byte) {
+	err := db.Delete(k, nil)
+	if err != nil {
+		l.Logger.Println(err)
+	}
 }
 
-// DeleteData is a function to delete the value from a key.
-func DeleteData(k string) {
-	err := db.Delete([]byte(k), nil)
+func GetData(k []byte) ([]byte, error) {
+	v, err := db.Get(k, nil)
 	if err != nil {
-		log.Println(err)
+		l.Logger.Println(err)
 	}
+	return v, err
 }

@@ -43,44 +43,38 @@ func Connect(tcpAddress string) (*Driver, error) {
 	// 	}
 	// 	log.Println(string(buf[:n]))
 	// }
-
-	// for {
-
-	// }
-	return &Driver{
-		conn,
-		hostname}, err
+	return &Driver{conn, hostname}, err
 }
 
-func (n *Driver) Put(key string, value string) {
+func (n *Driver) Put(key []byte, value []byte) {
 	p := s.GeneratePutStream(key, value)
 	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 	valueString := mergeString(p.Value.StartTag, p.Value.ValueContent, p.Value.EndTag)
 
-	_, err := n.Connection.Write([]byte(operatorString + keyString + valueString))
+	_, err := n.Connection.Write(append(append(operatorString, keyString...), valueString...))
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-func (n *Driver) Delete(key string) {
+func (n *Driver) Delete(key []byte) {
 	p := s.GenerateGetStream(key)
 	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 
-	_, err := n.Connection.Write([]byte(operatorString + keyString))
+	_, err := n.Connection.Write(append(append(operatorString, keyString...)))
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-func (n *Driver) Get(key string) string {
+func (n *Driver) Get(key []byte) string {
 	p := s.GenerateGetStream(key)
 	operatorString := mergeString(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeString(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 
-	_, err := n.Connection.Write([]byte(operatorString + keyString))
+	_, err := n.Connection.Write(append(append(operatorString, keyString...)))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -90,6 +84,6 @@ func (n *Driver) Get(key string) string {
 	return string(buf[:b])
 }
 
-func mergeString(startTag string, content string, endTag string) string {
-	return startTag + content + endTag
+func mergeString(startTag []byte, content []byte, endTag []byte) []byte {
+	return append(append(startTag, content...), endTag...)
 }

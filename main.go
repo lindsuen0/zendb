@@ -8,6 +8,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"net"
 
 	s "github.com/lindsuen0/canodb/stream"
@@ -43,7 +44,7 @@ func main() {
 
 func handleConnection(conn net.Conn) {
 	// defer conn.Close()
-	// // TODO
+
 	// for {
 	// 	reader := bufio.NewReader(conn)
 	// 	var buf [128]byte
@@ -66,18 +67,18 @@ func handleConnection(conn net.Conn) {
 			l.Logger.Println("An existing connection was closed by the remote host.")
 			break
 		}
-		recvStr := string(buf[:n])
-		l.Logger.Printf("Recived message: %q", recvStr)
-		operatorTag := s.PreParseStruct(recvStr)
-		if operatorTag == "0" {
-			errOfParse := s.ParsePutStream(recvStr)
+		recvByte := buf[:n]
+		l.Logger.Printf("Recived message: %q", string(recvByte))
+		operatorTag := s.PreParseStruct(recvByte)
+		if bytes.Equal(operatorTag, []byte("0")) {
+			errOfParse := s.ParsePutStream(recvByte)
 			if errOfParse != nil {
 				l.Logger.Println(errOfParse)
 			}
-		} else if operatorTag == "1" {
-			s.ParseDeleteStream(recvStr)
-		} else if operatorTag == "2" {
-			conn.Write([]byte(s.ParseGetStream(recvStr)))
+		} else if bytes.Equal(operatorTag, []byte("1")) {
+			s.ParseDeleteStream(recvByte)
+		} else if bytes.Equal(operatorTag, []byte("2")) {
+			conn.Write(s.ParseGetStream(recvByte))
 		}
 	}
 }
