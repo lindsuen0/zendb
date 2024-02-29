@@ -13,9 +13,9 @@ __MACOSX/
 .vscode/
 
 # Project
-bin/
-data/
-log/
+/bin
+/data
+/log
 *.exe
 *.exe~
 *.log
