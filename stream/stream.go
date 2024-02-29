@@ -64,32 +64,32 @@ func (b *valueStruct) setValueContent(s []byte) {
 }
 
 func CreatePutMess(key []byte, value []byte) Message {
-	stream := new(Message)
-	stream.Operator.setOperatorTag()
-	stream.Key.setKeyTag()
-	stream.Value.setValueTag()
-	stream.Operator.setOperatorContent([]byte("0"))
-	stream.Key.setKeyContent(key)
-	stream.Value.setValueContent(value)
-	return *stream
+	putMessage := new(Message)
+	putMessage.Operator.setOperatorTag()
+	putMessage.Key.setKeyTag()
+	putMessage.Value.setValueTag()
+	putMessage.Operator.setOperatorContent([]byte("0"))
+	putMessage.Key.setKeyContent(key)
+	putMessage.Value.setValueContent(value)
+	return *putMessage
 }
 
 func CreateDelMess(key []byte) Message {
-	stream := new(Message)
-	stream.Operator.setOperatorTag()
-	stream.Key.setKeyTag()
-	stream.Operator.setOperatorContent([]byte("1"))
-	stream.Key.setKeyContent(key)
-	return *stream
+	delMessage := new(Message)
+	delMessage.Operator.setOperatorTag()
+	delMessage.Key.setKeyTag()
+	delMessage.Operator.setOperatorContent([]byte("1"))
+	delMessage.Key.setKeyContent(key)
+	return *delMessage
 }
 
 func CreateGetMess(key []byte) Message {
-	stream := new(Message)
-	stream.Operator.setOperatorTag()
-	stream.Key.setKeyTag()
-	stream.Operator.setOperatorContent([]byte("2"))
-	stream.Key.setKeyContent(key)
-	return *stream
+	getMessage := new(Message)
+	getMessage.Operator.setOperatorTag()
+	getMessage.Key.setKeyTag()
+	getMessage.Operator.setOperatorContent([]byte("2"))
+	getMessage.Key.setKeyContent(key)
+	return *getMessage
 }
 
 func PreParseMess(message []byte) []byte {
@@ -117,7 +117,7 @@ func parseMess(message []byte, startTag string, endTag string) []byte {
 	return message[startTagIndex+1 : endTagIndex]
 }
 
-// ParsePutMess parses the stream of PUT.
+// ParsePutMess parses the message of PUT.
 // operatorTag: 0: Put, 1: Delete, 2: Get
 func ParsePutMess(m []byte) error {
 	operatorTag := parseMess(m, ":", "\n")
@@ -131,7 +131,7 @@ func ParsePutMess(m []byte) error {
 	return d.PutData(keyContent, valueContent)
 }
 
-// ParseDelMess parses the stream of DELETE.
+// ParseDelMess parses the message of DELETE.
 // operatorTag: 0: Put, 1: Delete, 2: Get
 func ParseDelMess(m []byte) error {
 	operatorTag := parseMess(m, ":", "\n")
@@ -145,7 +145,7 @@ func ParseDelMess(m []byte) error {
 	return err
 }
 
-// ParseGetMess parses the stream of GET.
+// ParseGetMess parses the message of GET.
 // operatorTag: 0: Put, 1: Delete, 2: Get
 func ParseGetMess(m []byte) ([]byte, error) {
 	operatorTag := parseMess(m, ":", "\n")

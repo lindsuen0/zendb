@@ -20,7 +20,7 @@ var DBConfig = new(dbConfig)
 
 var cfg = new(ini.File)
 
-func Setup() {
+func InitLog() {
 	var configPath = "config/config.ini"
 	var err error
 

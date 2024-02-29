@@ -14,7 +14,7 @@ import (
 
 var Logger *log.Logger
 
-func Setup() {
+func InitLog() {
 	err := os.Mkdir("log", 0755)
 	if err != nil && !os.IsExist(err) {
 		log.Fatalln(err)

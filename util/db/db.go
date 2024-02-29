@@ -19,7 +19,7 @@ var (
 	err error
 )
 
-func Setup() {
+func InitDB() {
 	dataPath := c.DBConfig.Data
 	db, err = leveldb.OpenFile(dataPath, nil)
 	if err != nil {

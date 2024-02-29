@@ -18,9 +18,9 @@ import (
 )
 
 func init() {
-	l.Setup()
-	c.Setup()
-	d.Setup()
+	l.InitLog()
+	c.InitLog()
+	d.InitDB()
 }
 
 func main() {
