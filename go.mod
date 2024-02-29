@@ -1,6 +1,6 @@
 module github.com/lindsuen/canodb
 
-go 1.21.7
+go 1.21
 
 require (
 	github.com/go-ini/ini v1.67.0
