@@ -32,11 +32,9 @@ func PutData(k []byte, v []byte) error {
 	return db.Put(k, v, nil)
 }
 
-func DeleteData(k []byte) {
+func DeleteData(k []byte) error {
 	err := db.Delete(k, nil)
-	if err != nil {
-		l.Logger.Println(err)
-	}
+	return err
 }
 
 func GetData(k []byte) ([]byte, error) {

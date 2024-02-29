@@ -43,20 +43,6 @@ func main() {
 }
 
 func handleConnection(conn net.Conn) {
-	// defer conn.Close()
-
-	// for {
-	// 	reader := bufio.NewReader(conn)
-	// 	var buf [128]byte
-	// 	n, err := reader.Read(buf[:])
-	// 	if err != nil {
-	// 		fmt.Println("read from client failed, err: ", err)
-	// 		break
-	// 	}
-	// 	recvStr := string(buf[:n])
-	// 	fmt.Println("have recived msg from client: ", recvStr)
-	// 	conn.Write([]byte(recvStr))
-	// }
 	defer conn.Close()
 
 	for {
@@ -69,16 +55,17 @@ func handleConnection(conn net.Conn) {
 		}
 		recvByte := buf[:n]
 		l.Logger.Printf("Recived message: %q", string(recvByte))
-		operatorTag := s.PreParseStruct(recvByte)
+		operatorTag := s.PreParseMess(recvByte)
 		if bytes.Equal(operatorTag, []byte("0")) {
-			errOfParse := s.ParsePutStream(recvByte)
+			errOfParse := s.ParsePutMess(recvByte)
 			if errOfParse != nil {
 				l.Logger.Println(errOfParse)
 			}
 		} else if bytes.Equal(operatorTag, []byte("1")) {
-			s.ParseDeleteStream(recvByte)
+			_ = s.ParseDelMess(recvByte)
 		} else if bytes.Equal(operatorTag, []byte("2")) {
-			conn.Write(s.ParseGetStream(recvByte))
+			b, _ := s.ParseGetMess(recvByte)
+			conn.Write(b)
 		}
 	}
 }

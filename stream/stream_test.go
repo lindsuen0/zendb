@@ -11,24 +11,20 @@ import (
 	"testing"
 )
 
-func TestGeneratePutStream(t *testing.T) {
-	stream1 := GeneratePutStream([]byte("key1"), []byte("value1"))
+func TestCreatePutMess(t *testing.T) {
+	stream1 := CreatePutMess([]byte("key1"), []byte("value1"))
 	operatorStream1 := append(append(stream1.Operator.StartTag, stream1.Operator.OperatorContent...), stream1.Operator.EndTag...)
 	keyStream1 := append(append(stream1.Key.StartTag, stream1.Key.KeyContent...), stream1.Key.EndTag...)
 	valueStream1 := append(append(stream1.Value.StartTag, stream1.Value.ValueContent...), stream1.Value.EndTag...)
 	fmt.Printf("%q", string(append(append(operatorStream1, keyStream1...), valueStream1...)))
 }
 
-func TestGenerateDeleteStream(t *testing.T) {
-
-}
-
-func TestParseStruct(t *testing.T) {
-	// s := []byte(":0\n$KEY321\n-VALUE123\n")
+func TestParseMess(t *testing.T) {
+	s := []byte(":0\n$KEY321\n-VALUE123\n")
 	// s := []byte(":0\n$KEY321\n")
-	s := []byte(":0\n$KEY321\n-\n")
-	// d := parseStruct(s, ":", "\n")
-	// d := parseStruct(s, "$", "\n")
-	d := parseStruct(s, "-", "\n")
+	// s := []byte(":0\n$KEY321\n-\n")
+	d := parseMess(s, ":", "\n")
+	// d := parseMess(s, "$", "\n")
+	// d := parseMess(s, "-", "\n")
 	fmt.Println(string(d))
 }

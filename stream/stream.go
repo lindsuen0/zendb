@@ -12,7 +12,7 @@ import (
 	d "github.com/lindsuen/canodb/util/db"
 )
 
-type Stream struct {
+type Message struct {
 	Operator operatorStruct
 	Key      keyStruct
 	Value    valueStruct
@@ -63,8 +63,8 @@ func (b *valueStruct) setValueContent(s []byte) {
 	b.ValueContent = s
 }
 
-func GeneratePutStream(key []byte, value []byte) Stream {
-	stream := new(Stream)
+func CreatePutMess(key []byte, value []byte) Message {
+	stream := new(Message)
 	stream.Operator.setOperatorTag()
 	stream.Key.setKeyTag()
 	stream.Value.setValueTag()
@@ -74,8 +74,8 @@ func GeneratePutStream(key []byte, value []byte) Stream {
 	return *stream
 }
 
-func GenerateDeleteStream(key []byte) Stream {
-	stream := new(Stream)
+func CreateDelMess(key []byte) Message {
+	stream := new(Message)
 	stream.Operator.setOperatorTag()
 	stream.Key.setKeyTag()
 	stream.Operator.setOperatorContent([]byte("1"))
@@ -83,8 +83,8 @@ func GenerateDeleteStream(key []byte) Stream {
 	return *stream
 }
 
-func GenerateGetStream(key []byte) Stream {
-	stream := new(Stream)
+func CreateGetMess(key []byte) Message {
+	stream := new(Message)
 	stream.Operator.setOperatorTag()
 	stream.Key.setKeyTag()
 	stream.Operator.setOperatorContent([]byte("2"))
@@ -92,11 +92,11 @@ func GenerateGetStream(key []byte) Stream {
 	return *stream
 }
 
-func PreParseStruct(message []byte) []byte {
-	return parseStruct(message, ":", "\n")
+func PreParseMess(message []byte) []byte {
+	return parseMess(message, ":", "\n")
 }
 
-func parseStruct(message []byte, startTag string, endTag string) []byte {
+func parseMess(message []byte, startTag string, endTag string) []byte {
 	var startTagIndex, endTagIndex int
 
 	for k, v := range message {
@@ -117,46 +117,44 @@ func parseStruct(message []byte, startTag string, endTag string) []byte {
 	return message[startTagIndex+1 : endTagIndex]
 }
 
-// ParsePutStream parses the stream of PUT.
-// operatorTag:
-// 0: Put, 1: Delete, 2: Get
-func ParsePutStream(m []byte) error {
-	operatorTag := parseStruct(m, ":", "\n")
-	keyContent := parseStruct(m, "$", "\n")
-	valueContent := parseStruct(m, "-", "\n")
+// ParsePutMess parses the stream of PUT.
+// operatorTag: 0: Put, 1: Delete, 2: Get
+func ParsePutMess(m []byte) error {
+	operatorTag := parseMess(m, ":", "\n")
+	keyContent := parseMess(m, "$", "\n")
+	valueContent := parseMess(m, "-", "\n")
 
 	if string(operatorTag) != "0" {
-		log.Println("error")
+		log.Println("parse put error")
 	}
 
 	return d.PutData(keyContent, valueContent)
 }
 
-// ParseDeleteStream parses the stream of DELETE.
-// operatorTag:
-// 0: Put, 1: Delete, 2: Get
-func ParseDeleteStream(m []byte) {
-	operatorTag := parseStruct(m, ":", "\n")
-	keyContent := parseStruct(m, "$", "\n")
+// ParseDelMess parses the stream of DELETE.
+// operatorTag: 0: Put, 1: Delete, 2: Get
+func ParseDelMess(m []byte) error {
+	operatorTag := parseMess(m, ":", "\n")
+	keyContent := parseMess(m, "$", "\n")
 
 	if string(operatorTag) != "1" {
-		log.Println("error")
+		log.Println("parse delete error")
 	}
 
-	d.DeleteData(keyContent)
+	err := d.DeleteData(keyContent)
+	return err
 }
 
-// ParseGetStream parses the stream of GET.
-// operatorTag:
-// 0: Put, 1: Delete, 2: Get
-func ParseGetStream(m []byte) []byte {
-	operatorTag := parseStruct(m, ":", "\n")
-	keyContent := parseStruct(m, "$", "\n")
+// ParseGetMess parses the stream of GET.
+// operatorTag: 0: Put, 1: Delete, 2: Get
+func ParseGetMess(m []byte) ([]byte, error) {
+	operatorTag := parseMess(m, ":", "\n")
+	keyContent := parseMess(m, "$", "\n")
 
 	if string(operatorTag) != "2" {
-		log.Println("error")
+		log.Println("parse get error")
 	}
 
-	s, _ := d.GetData(keyContent)
-	return s
+	s, err := d.GetData(keyContent)
+	return s, err
 }
