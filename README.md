@@ -4,7 +4,7 @@ CanoDB is a key-value database based on goLevelDB.
 
 ## Requirement
 
-- Need at least Go1.20 or newer.
+- Need at least Go 1.21 or newer.
 
 ## Usage
 
@@ -21,11 +21,11 @@ Read or modify the database content:
 
 ```go
 // ...
-db.Put([]byte("key"), []byte("value"))
+err := db.Put([]byte("key"), []byte("value"))
 // ...
-db.Delete([]byte("key"))
+err = db.Delete([]byte("key"))
 // ...
-value := db.Get([]byte("key"))
+value, err = db.Get([]byte("key"))
 // ...
 ```
 
