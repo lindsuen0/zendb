@@ -69,8 +69,8 @@ func (b *valueStruct) setValueContent(s []byte) {
 	b.ValueContent = s
 }
 
-var (
-	READTIMEOUT = 500 * time.Millisecond
+const (
+	READTIMEOUT = 300 * time.Millisecond
 )
 
 func CreatePutMess(key []byte, value []byte) Message {
@@ -152,9 +152,5 @@ func mergeByteSlice(startTag []byte, content []byte, endTag []byte) []byte {
 
 func byteSliceIsNil(b []byte) bool {
 	var tempSlice []byte
-	if bytes.Equal(b, tempSlice) {
-		return true
-	} else {
-		return false
-	}
+	return bytes.Equal(b, tempSlice)
 }
