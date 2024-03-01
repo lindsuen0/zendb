@@ -7,18 +7,99 @@
 package client
 
 import (
+	"bytes"
+	"errors"
 	"fmt"
-	s "github.com/lindsuen/canodb/stream"
 	"net"
 	"time"
 )
 
-var (
-	READTIMEOUT = 3 * time.Second
-)
-
 type Driver struct {
 	Conn net.Conn
+}
+
+type Message struct {
+	Operator operatorStruct
+	Key      keyStruct
+	Value    valueStruct
+}
+
+type operatorStruct struct {
+	StartTag        []byte
+	OperatorContent []byte
+	EndTag          []byte
+}
+
+type keyStruct struct {
+	StartTag   []byte
+	KeyContent []byte
+	EndTag     []byte
+}
+
+type valueStruct struct {
+	StartTag     []byte
+	ValueContent []byte
+	EndTag       []byte
+}
+
+func (b *operatorStruct) setOperatorTag() {
+	b.StartTag = []byte(":")
+	b.EndTag = []byte("\n")
+}
+
+func (b *keyStruct) setKeyTag() {
+	b.StartTag = []byte("$")
+	b.EndTag = []byte("\n")
+}
+
+func (b *valueStruct) setValueTag() {
+	b.StartTag = []byte("-")
+	b.EndTag = []byte("\n")
+}
+
+func (b *operatorStruct) setOperatorContent(s []byte) {
+	b.OperatorContent = s
+}
+
+func (b *keyStruct) setKeyContent(s []byte) {
+	b.KeyContent = s
+}
+
+func (b *valueStruct) setValueContent(s []byte) {
+	b.ValueContent = s
+}
+
+var (
+	READTIMEOUT = 500 * time.Millisecond
+)
+
+func CreatePutMess(key []byte, value []byte) Message {
+	putMessage := new(Message)
+	putMessage.Operator.setOperatorTag()
+	putMessage.Key.setKeyTag()
+	putMessage.Value.setValueTag()
+	putMessage.Operator.setOperatorContent([]byte("0"))
+	putMessage.Key.setKeyContent(key)
+	putMessage.Value.setValueContent(value)
+	return *putMessage
+}
+
+func CreateDelMess(key []byte) Message {
+	delMessage := new(Message)
+	delMessage.Operator.setOperatorTag()
+	delMessage.Key.setKeyTag()
+	delMessage.Operator.setOperatorContent([]byte("1"))
+	delMessage.Key.setKeyContent(key)
+	return *delMessage
+}
+
+func CreateGetMess(key []byte) Message {
+	getMessage := new(Message)
+	getMessage.Operator.setOperatorTag()
+	getMessage.Key.setKeyTag()
+	getMessage.Operator.setOperatorContent([]byte("2"))
+	getMessage.Key.setKeyContent(key)
+	return *getMessage
 }
 
 func Connect(tcpAddress string) (*Driver, error) {
@@ -27,7 +108,7 @@ func Connect(tcpAddress string) (*Driver, error) {
 }
 
 func (n *Driver) Put(key []byte, value []byte) error {
-	p := s.CreatePutMess(key, value)
+	p := CreatePutMess(key, value)
 	operatorString := mergeByteSlice(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeByteSlice(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 	valueString := mergeByteSlice(p.Value.StartTag, p.Value.ValueContent, p.Value.EndTag)
@@ -37,7 +118,7 @@ func (n *Driver) Put(key []byte, value []byte) error {
 }
 
 func (n *Driver) Delete(key []byte) error {
-	p := s.CreateDelMess(key)
+	p := CreateDelMess(key)
 	operatorString := mergeByteSlice(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeByteSlice(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 
@@ -47,7 +128,7 @@ func (n *Driver) Delete(key []byte) error {
 
 func (n *Driver) Get(key []byte) ([]byte, error) {
 	var err error
-	p := s.CreateGetMess(key)
+	p := CreateGetMess(key)
 	operatorString := mergeByteSlice(p.Operator.StartTag, p.Operator.OperatorContent, p.Operator.EndTag)
 	keyString := mergeByteSlice(p.Key.StartTag, p.Key.KeyContent, p.Key.EndTag)
 
@@ -59,9 +140,21 @@ func (n *Driver) Get(key []byte) ([]byte, error) {
 	_ = n.Conn.SetReadDeadline(time.Now().Add(READTIMEOUT))
 	buf := [256]byte{}
 	b, _ := n.Conn.Read(buf[:])
+	if byteSliceIsNil(buf[:b]) {
+		err = errors.New("canodb: not found")
+	}
 	return buf[:b], err
 }
 
 func mergeByteSlice(startTag []byte, content []byte, endTag []byte) []byte {
 	return append(append(startTag, content...), endTag...)
+}
+
+func byteSliceIsNil(b []byte) bool {
+	var tempSlice []byte
+	if bytes.Equal(b, tempSlice) {
+		return true
+	} else {
+		return false
+	}
 }

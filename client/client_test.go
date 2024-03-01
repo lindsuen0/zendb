@@ -11,6 +11,14 @@ import (
 	"testing"
 )
 
+func TestCreatePutMess(t *testing.T) {
+	message := CreatePutMess([]byte("key1"), []byte("value1"))
+	operatorMessage := append(append(message.Operator.StartTag, message.Operator.OperatorContent...), message.Operator.EndTag...)
+	keyMessage := append(append(message.Key.StartTag, message.Key.KeyContent...), message.Key.EndTag...)
+	valueMessage := append(append(message.Value.StartTag, message.Value.ValueContent...), message.Value.EndTag...)
+	fmt.Printf("%q", string(append(append(operatorMessage, keyMessage...), valueMessage...)))
+}
+
 var (
 	db  *Driver
 	err error
@@ -50,6 +58,7 @@ func TestGet(t *testing.T) {
 	v, err = db.Get([]byte("key1a"))
 	if err != nil {
 		fmt.Println(err)
+	} else {
+		fmt.Println(string(v))
 	}
-	fmt.Println(string(v))
 }

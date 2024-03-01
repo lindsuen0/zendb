@@ -11,14 +11,6 @@ import (
 	"testing"
 )
 
-func TestCreatePutMess(t *testing.T) {
-	message := CreatePutMess([]byte("key1"), []byte("value1"))
-	operatorMessage := append(append(message.Operator.StartTag, message.Operator.OperatorContent...), message.Operator.EndTag...)
-	keyMessage := append(append(message.Key.StartTag, message.Key.KeyContent...), message.Key.EndTag...)
-	valueMessage := append(append(message.Value.StartTag, message.Value.ValueContent...), message.Value.EndTag...)
-	fmt.Printf("%q", string(append(append(operatorMessage, keyMessage...), valueMessage...)))
-}
-
 func TestParseMess(t *testing.T) {
 	s := []byte(":0\n$KEY321\n-VALUE123\n")
 	// s := []byte(":0\n$KEY321\n")
