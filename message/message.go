@@ -1,15 +1,14 @@
-// canodb - stream.go
+// canodb - message.go
 // Copyright (C) 2024 LindSuen <lindsuen@foxmail.com>
 //
 // Use of this source code is governed by a BSD 2-Clause License that can be
 // found in the LICENSE file.
 
-package stream
+package message
 
 import (
-	"log"
-
 	d "github.com/lindsuen/canodb/util/db"
+	l "github.com/lindsuen/canodb/util/log"
 )
 
 func PreParseMess(message []byte) []byte {
@@ -38,27 +37,27 @@ func parseMess(message []byte, startTag string, endTag string) []byte {
 }
 
 // ParsePutMess parses the message of PUT.
-// operatorTag: 0: Put, 1: Delete, 2: Get
+// operatorContent: 0: Put, 1: Delete, 2: Get
 func ParsePutMess(m []byte) error {
-	operatorTag := parseMess(m, ":", "\n")
+	operatorContent := parseMess(m, ":", "\n")
 	keyContent := parseMess(m, "$", "\n")
 	valueContent := parseMess(m, "-", "\n")
 
-	if string(operatorTag) != "0" {
-		log.Println("parse put error")
+	if string(operatorContent) != "0" {
+		l.Logger.Println("Unable to parse Put() message.")
 	}
 
 	return d.PutData(keyContent, valueContent)
 }
 
 // ParseDelMess parses the message of DELETE.
-// operatorTag: 0: Put, 1: Delete, 2: Get
+// operatorContent: 0: Put, 1: Delete, 2: Get
 func ParseDelMess(m []byte) error {
-	operatorTag := parseMess(m, ":", "\n")
+	operatorContent := parseMess(m, ":", "\n")
 	keyContent := parseMess(m, "$", "\n")
 
-	if string(operatorTag) != "1" {
-		log.Println("parse delete error")
+	if string(operatorContent) != "1" {
+		l.Logger.Println("Unable to parse Delete() message.")
 	}
 
 	err := d.DeleteData(keyContent)
@@ -66,13 +65,13 @@ func ParseDelMess(m []byte) error {
 }
 
 // ParseGetMess parses the message of GET.
-// operatorTag: 0: Put, 1: Delete, 2: Get
+// operatorContent: 0: Put, 1: Delete, 2: Get
 func ParseGetMess(m []byte) ([]byte, error) {
-	operatorTag := parseMess(m, ":", "\n")
+	operatorContent := parseMess(m, ":", "\n")
 	keyContent := parseMess(m, "$", "\n")
 
-	if string(operatorTag) != "2" {
-		log.Println("parse get error")
+	if string(operatorContent) != "2" {
+		l.Logger.Println("Unable to parse Get() message.")
 	}
 
 	s, err := d.GetData(keyContent)

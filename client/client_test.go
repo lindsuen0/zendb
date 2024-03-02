@@ -12,11 +12,11 @@ import (
 )
 
 func TestCreatePutMess(t *testing.T) {
-	message := CreatePutMess([]byte("key1"), []byte("value1"))
-	operatorMessage := append(append(message.Operator.StartTag, message.Operator.OperatorContent...), message.Operator.EndTag...)
-	keyMessage := append(append(message.Key.StartTag, message.Key.KeyContent...), message.Key.EndTag...)
-	valueMessage := append(append(message.Value.StartTag, message.Value.ValueContent...), message.Value.EndTag...)
-	fmt.Printf("%q", string(append(append(operatorMessage, keyMessage...), valueMessage...)))
+	message := createPutMess([]byte("key1"), []byte("value1"))
+	operatorMessage := mergeByteSlice(message.operator.startTag, message.operator.operatorContent, message.operator.endTag)
+	keyMessage := mergeByteSlice(message.key.startTag, message.key.keyContent, message.key.endTag)
+	valueMessage := mergeByteSlice(message.value.startTag, message.value.valueContent, message.value.endTag)
+	fmt.Printf("%q", string(mergeByteSlice(operatorMessage, keyMessage, valueMessage)))
 }
 
 var (

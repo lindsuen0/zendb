@@ -11,7 +11,7 @@ import (
 	"bytes"
 	"net"
 
-	s "github.com/lindsuen/canodb/stream"
+	m "github.com/lindsuen/canodb/message"
 	c "github.com/lindsuen/canodb/util/config"
 	d "github.com/lindsuen/canodb/util/db"
 	l "github.com/lindsuen/canodb/util/log"
@@ -19,7 +19,7 @@ import (
 
 func init() {
 	l.InitLog()
-	c.InitLog()
+	c.InitConfig()
 	d.InitDB()
 }
 
@@ -55,16 +55,16 @@ func handleConnection(conn net.Conn) {
 		}
 		recvByte := buf[:n]
 		l.Logger.Printf("Recived message: %q", string(recvByte))
-		operatorTag := s.PreParseMess(recvByte)
+		operatorTag := m.PreParseMess(recvByte)
 		if bytes.Equal(operatorTag, []byte("0")) {
-			errOfParse := s.ParsePutMess(recvByte)
+			errOfParse := m.ParsePutMess(recvByte)
 			if errOfParse != nil {
 				l.Logger.Println(errOfParse)
 			}
 		} else if bytes.Equal(operatorTag, []byte("1")) {
-			_ = s.ParseDelMess(recvByte)
+			_ = m.ParseDelMess(recvByte)
 		} else if bytes.Equal(operatorTag, []byte("2")) {
-			b, _ := s.ParseGetMess(recvByte)
+			b, _ := m.ParseGetMess(recvByte)
 			conn.Write(b)
 		}
 	}
