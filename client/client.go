@@ -107,6 +107,10 @@ func Connect(tcpAddress string) (*Driver, error) {
 	return &Driver{conn}, err
 }
 
+func (n *Driver) Close() error {
+	return n.Conn.Close()
+}
+
 func (n *Driver) Put(key []byte, value []byte) error {
 	p := createPutMess(key, value)
 	operatorString := mergeByteSlice(p.operator.startTag, p.operator.operatorContent, p.operator.endTag)
