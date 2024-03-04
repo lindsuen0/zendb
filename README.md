@@ -5,17 +5,25 @@
 ![GitHub Release](https://img.shields.io/github/v/release/lindsuen/canodb)
 ![GitHub License](https://img.shields.io/github/license/lindsuen/canodb)
 
-CanoDB is a key-value database. It provides TCP client and server, expanding the goLevelDB database.
+:wave: ***Welcome to CanoDB.***
 
 ## Introduction
 
+CanoDB is a distributed key value database that draws on the characteristics of PostgreSQL and Redis databases. It provides TCP client and server, expanding the [goLevelDB](https://github.com/syndtr/goleveldb "goLevelDB") database. The environmental requirement is at least `Go 1.21`.
+
 ## Usage
 
-The client part is introduced into the code through `go import`. The server part is compiled and run in binary form or Docker image form. The development environment requires at least `Go 1.21` or newer.
+The client part is introduced into the code through `go import`. The server part is compiled and run in binary form or Docker image form.
 
 ### Client
 
-Connect to a database:
+Download client package:
+
+```sh
+go get github.com/lindsuen/canodb/client
+```
+
+Import client package and connect to a database:
 
 ```go
 import "github.com/lindsuen/canodb/client"
@@ -23,6 +31,8 @@ import "github.com/lindsuen/canodb/client"
 // ...
 // The default port of CanoDB server is 4644.
 db, err := client.Connect("127.0.0.1:4644")
+// ...
+defer db.Close()
 // ...
 ```
 
@@ -40,24 +50,26 @@ value, err = db.Get([]byte("key"))
 
 ### Server
 
+Place the downloaded or compiled binary file `canodb` in the corresponding directory, and then execute:
+
 ```sh
 ./canodb
 ```
 
 ## Build
 
+It is recommended to build on the Debian operating system. The `make` tool is necessary, and you can install it through `apt install -y build-essential`.
+
 ### Binary
 
 ```sh
-go build -o bin/canodb .
-# or 
-make build
+cd canodb/ && go build -o bin/canodb .
 ```
 
 ### Docker
 
 ```sh
-make build
+cd canodb/ && make build
 ```
 
 ```sh
