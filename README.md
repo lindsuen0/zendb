@@ -9,7 +9,7 @@
 
 ## Introduction
 
-CanoDB is a distributed key value database that draws on the characteristics of PostgreSQL and Redis databases. It provides TCP client and server, expanding the [goLevelDB](https://github.com/syndtr/goleveldb "goLevelDB") database. The environmental requirement is at least `Go 1.21`.
+CanoDB is a distributed key value database that draws on the characteristics of PostgreSQL and Redis databases. It provides TCP client and server, expanding the [goLevelDB](https://github.com/syndtr/goleveldb "goLevelDB") database. The environmental requirement is at least `Go 1.22`.
 
 ## Usage
 
@@ -58,7 +58,7 @@ Place the downloaded or compiled binary file `canodb` in the corresponding direc
 
 ## Build
 
-It is recommended to build on the Debian operating system. The `make` tool is necessary, and you can install it through `apt install -y build-essential`.
+It is recommended to build on the Debian operating system. The `make` tool is necessary, and you can install it through the command `apt install -y build-essential`.
 
 ### Binary
 
