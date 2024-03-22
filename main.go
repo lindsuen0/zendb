@@ -17,6 +17,32 @@ import (
 	l "github.com/lindsuen/canodb/util/log"
 )
 
+// :VALUE\n
+// ^STATUSCODE\n
+//
+// STATUSCODE:
+//
+//	20 SUCCESS, 30 NOTFOUND, 40 EXCEPTION
+type sMessage struct {
+	startTag []byte
+	Content  []byte
+	endTag   []byte
+}
+
+func (m *sMessage) setValueTag() {
+	m.startTag = []byte(":")
+	m.endTag = []byte("\n")
+}
+
+func (m *sMessage) setStatusCodeTag() {
+	m.startTag = []byte("^")
+	m.endTag = []byte("\n")
+}
+
+func (m *sMessage) setContent(c []byte) {
+	m.Content = c
+}
+
 func init() {
 	l.InitLog()
 	c.InitConfig()
@@ -46,6 +72,7 @@ func handleConnection(conn net.Conn) {
 	defer conn.Close()
 
 	for {
+		resMessage := new(sMessage)
 		reader := bufio.NewReader(conn)
 		var buf [512]byte
 		n, err := reader.Read(buf[:])
@@ -60,12 +87,36 @@ func handleConnection(conn net.Conn) {
 			errOfParse := m.ParsePutMess(recvByte)
 			if errOfParse != nil {
 				l.Logger.Println(errOfParse)
+			} else {
+				resMessage.setStatusCodeTag()
+				resMessage.setContent([]byte("20"))
+				conn.Write(mergeByteSlice(resMessage.startTag, resMessage.Content, resMessage.endTag))
 			}
 		} else if bytes.Equal(operatorTag, []byte("1")) {
 			_ = m.ParseDelMess(recvByte)
+			resMessage.setStatusCodeTag()
+			resMessage.setContent([]byte("20"))
+			conn.Write(mergeByteSlice(resMessage.startTag, resMessage.Content, resMessage.endTag))
 		} else if bytes.Equal(operatorTag, []byte("2")) {
 			b, _ := m.ParseGetMess(recvByte)
-			conn.Write(b)
+			if byteSliceIsNil(b) {
+				resMessage.setStatusCodeTag()
+				resMessage.setContent([]byte("30"))
+				conn.Write(mergeByteSlice(resMessage.startTag, resMessage.Content, resMessage.endTag))
+			} else {
+				resMessage.setValueTag()
+				resMessage.setContent(b)
+				conn.Write(mergeByteSlice(resMessage.startTag, resMessage.Content, resMessage.endTag))
+			}
 		}
 	}
+}
+
+func mergeByteSlice(startTag []byte, content []byte, endTag []byte) []byte {
+	return append(append(startTag, content...), endTag...)
+}
+
+func byteSliceIsNil(b []byte) bool {
+	var tempSlice []byte
+	return bytes.Equal(b, tempSlice)
 }

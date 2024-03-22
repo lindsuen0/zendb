@@ -144,17 +144,43 @@ func (n *Driver) Get(key []byte) ([]byte, error) {
 	_ = n.Conn.SetReadDeadline(time.Now().Add(READTIMEOUT))
 	var buf [256]byte
 	b, _ := n.Conn.Read(buf[:])
-	if byteSliceIsNil(buf[:b]) {
-		err = errors.New("canodb: not found")
+	if bytes.Equal(buf[:1], []byte(":")) {
+		return parseMess(buf[:b], ":", "\n"), nil
+	} else if bytes.Equal(buf[:1], []byte("^")) {
+		statusCode := parseMess(buf[:b], "^", "\n")
+		if bytes.Equal(statusCode, []byte("30")) {
+			return nil, errors.New("canodb: not found")
+		}
 	}
-	return buf[:b], err
+	return nil, errors.New("something error")
 }
 
 func mergeByteSlice(startTag []byte, content []byte, endTag []byte) []byte {
 	return append(append(startTag, content...), endTag...)
 }
 
-func byteSliceIsNil(b []byte) bool {
-	var tempSlice []byte
-	return bytes.Equal(b, tempSlice)
+// func byteSliceIsNil(b []byte) bool {
+// 	var tempSlice []byte
+// 	return bytes.Equal(b, tempSlice)
+// }
+
+func parseMess(message []byte, startTag string, endTag string) []byte {
+	var startTagIndex, endTagIndex int
+
+	for k, v := range message {
+		if string(v) == startTag {
+			startTagIndex = k
+			break
+		}
+	}
+
+	tempIndex := startTagIndex
+	for ; ; tempIndex++ {
+		if string(message[tempIndex]) == endTag {
+			endTagIndex = tempIndex
+			break
+		}
+	}
+
+	return message[startTagIndex+1 : endTagIndex]
 }
