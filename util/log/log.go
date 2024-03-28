@@ -20,7 +20,7 @@ func InitLog() {
 		log.Fatalln(err)
 	}
 
-	f, err := os.OpenFile("log/logback.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	f, err := os.OpenFile("log/canodb.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatalln(err)
 	}
